@@ -21,7 +21,7 @@ public class Principal extends JFrame {
 	String usuario;
 	Principal p;
 	
-
+//Miki no la cajeties 
 	public Principal(String user) {
 		setTitle("Taqueria -Bienvenido- : "+user);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
