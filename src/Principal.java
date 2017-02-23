@@ -13,6 +13,8 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import java.awt.Color;
 //Esto es una prueba de comit
+
+//MIKI SI O NO TE JALA?????
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
 
