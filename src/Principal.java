@@ -11,36 +11,36 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
-import java.awt.Color;
-//Esto es una prueba de comit
 
-//MIKI SI O NO TE JALA?????
+import java.awt.BorderLayout;
+import java.awt.Color;
+
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
-	String trees[];
+
 	String usuario;
 	Principal p;
 	
 //Miki no la cajeties 
 	public Principal(String user) {
-		setTitle("Taqueria -Bienvenido- : "+user);
+		setTitle("-Bienvenido- : "+user);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1000, 383);
+		setSize(1200, 600);
 		setLocationRelativeTo(null);
 		p=this;
 		usuario=user;
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new BorderLayout());
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(5, 5, 156, 334);
-		contentPane.add(scrollPane);
+		contentPane.add(scrollPane,BorderLayout.WEST);
 		
-		trees=new String[]{"Punto de venta","Agregar Producto","Lista de Productos","Agregar usuario"};
+		
 		JTree tree = new JTree();
 		tree.setFocusable(false);
 		addtree(tree);
@@ -51,32 +51,26 @@ public class Principal extends JFrame {
 		desktopPane.setToolTipText("");
 		desktopPane.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(169, 169, 169), new Color(105, 105, 105), new Color(230, 230, 250), new Color(0, 0, 0)));
 		desktopPane.setBounds(171, 5, 798, 331);
-		contentPane.add(desktopPane);
+		contentPane.add(desktopPane,BorderLayout.CENTER);
 		
 	
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
 			public void valueChanged(TreeSelectionEvent arg0) {
 				switch(tree.getSelectionPath().getLastPathComponent().toString())
 				{
-				case "Agregar Producto":
-					insertprod fip = new insertprod();
-					fip.setVisible(true);
-					desktopPane.add(fip);
+				case "Capturar insumos":
+					CapturaInsumos var = new CapturaInsumos();
+					var.setVisible(true);
+					desktopPane.add(var);
 					tree.setSelectionRow(tree.getMinSelectionRow()-1);
 					break;
-				case "Punto de venta":
-					habilitar(false);
-					PuntoVenta pv=new PuntoVenta(p);
-					pv.setVisible(true);
-					tree.setSelectionRow(tree.getMinSelectionRow()-1);
-					break;
-				case "Lista de Productos":
-					Productos prod=new Productos();
+				case "Captura Modelos":
+					CapturaModelos prod=new CapturaModelos();
 					prod.setVisible(true);
 					desktopPane.add(prod);
 					tree.setSelectionRow(tree.getMinSelectionRow()-2);
 					break;
-				case "Agregar usuario":
+	/*			case "Agregar usuario":
 					addUser au=new addUser();
 					au.setVisible(true);
 					desktopPane.add(au);
@@ -91,7 +85,7 @@ public class Principal extends JFrame {
 				case "Reporte de Ventas":
 					tree.setSelectionRow(tree.getMinSelectionRow()-1);
 					break;
-				}
+		*/		}
 				
 			}
 		});
@@ -101,18 +95,19 @@ public class Principal extends JFrame {
 
 	private void addtree(JTree tree) {
 		tree.setModel(new DefaultTreeModel(
-				new DefaultMutableTreeNode("Taqueria") {
+				new DefaultMutableTreeNode("Sistema de Calzado artesanal") {
 					{
 						DefaultMutableTreeNode node_1;
-						node_1 = new DefaultMutableTreeNode("Ventas");
-							node_1.add(new DefaultMutableTreeNode(trees[0]));
+						node_1 = new DefaultMutableTreeNode("Inventario");
+							node_1.add(new DefaultMutableTreeNode("Capturar insumos"));
+							node_1.add(new DefaultMutableTreeNode("Captura Modelos"));
 						add(node_1);
 						node_1 = new DefaultMutableTreeNode("Inventario");
-							node_1.add(new DefaultMutableTreeNode(trees[1]));
-							node_1.add(new DefaultMutableTreeNode(trees[2]));
+							node_1.add(new DefaultMutableTreeNode(""));
+							node_1.add(new DefaultMutableTreeNode(""));
 						add(node_1);
 							node_1 = new DefaultMutableTreeNode("Usuarios");
-							node_1.add(new DefaultMutableTreeNode(trees[3]));
+							node_1.add(new DefaultMutableTreeNode(""));
 							node_1.add(new DefaultMutableTreeNode("Lista de usuarios"));
 						add(node_1);
 							node_1 = new DefaultMutableTreeNode("Reportes");

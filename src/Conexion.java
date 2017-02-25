@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JOptionPane;
+
 public class Conexion {
 	 private String username="";
 	private String pass="";
@@ -28,7 +30,7 @@ public class Conexion {
 				Class.forName(classname);
 	          con = DriverManager.getConnection(url, username, pass);
 	      } catch (ClassNotFoundException ex) {
-	          Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+	          JOptionPane.showMessageDialog(null, "Error al conectar", "Error de conexion", JOptionPane.ERROR_MESSAGE);
 	      } catch(SQLException e){
 	          
 	      }
@@ -40,7 +42,8 @@ public class Conexion {
 	  public void closeConexion()
 	  {
 		  try {
-			con.close();
+			  if(con!=null)
+				  con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

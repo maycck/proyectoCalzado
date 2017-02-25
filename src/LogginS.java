@@ -48,7 +48,7 @@ public class LogginS extends JFrame {
 
 	
 	public LogginS() {
-		setTitle("Sintama GPC");
+		setTitle("Sistema GPC");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 395, 200);
 		if(!new File("C:/ProCzo").exists())
@@ -138,7 +138,7 @@ public class LogginS extends JFrame {
 
 
 	private void confg() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -151,8 +151,10 @@ public class LogginS extends JFrame {
 		if(isPasswordCorrect(user.getText(),input))
 		{
 			dispose();		
-		//	Principal p=new Principal(nameuser);
-			System.out.println("ingreso correcto");
+			Principal p=new Principal(nameuser);
+			p.setVisible(true);
+			
+		//	System.out.println("ingreso correcto");
 		//	p.setVisible(true);
 				
 
