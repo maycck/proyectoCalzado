@@ -25,7 +25,7 @@ public class Principal extends JFrame {
 	
 //Miki no la cajeties 
 	public Principal(String user) {
-		setTitle("-Bienvenido- : "+user);
+		setTitle("Sistema GPPCINCA   -Bienvenido- : "+user);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1200, 600);
 		setLocationRelativeTo(null);
@@ -102,16 +102,16 @@ public class Principal extends JFrame {
 							node_1.add(new DefaultMutableTreeNode("Capturar insumos"));
 							node_1.add(new DefaultMutableTreeNode("Captura Modelos"));
 						add(node_1);
-						node_1 = new DefaultMutableTreeNode("Inventario");
+						node_1 = new DefaultMutableTreeNode("");
 							node_1.add(new DefaultMutableTreeNode(""));
 							node_1.add(new DefaultMutableTreeNode(""));
 						add(node_1);
-							node_1 = new DefaultMutableTreeNode("Usuarios");
+							node_1 = new DefaultMutableTreeNode("");
 							node_1.add(new DefaultMutableTreeNode(""));
-							node_1.add(new DefaultMutableTreeNode("Lista de usuarios"));
+							node_1.add(new DefaultMutableTreeNode(""));
 						add(node_1);
-							node_1 = new DefaultMutableTreeNode("Reportes");
-							node_1.add(new DefaultMutableTreeNode("Reporte de Ventas"));
+							node_1 = new DefaultMutableTreeNode("");
+							node_1.add(new DefaultMutableTreeNode(""));
 						add(node_1);
 					}
 				}

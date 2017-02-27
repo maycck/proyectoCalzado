@@ -15,6 +15,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -48,7 +49,7 @@ public class LogginS extends JFrame {
 
 	
 	public LogginS() {
-		setTitle("Sistema GPC");
+		setTitle("Sistema GPPCINCA");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 395, 200);
 		if(!new File("C:/ProCzo").exists())
@@ -102,6 +103,7 @@ public class LogginS extends JFrame {
 		btnConfig.setMnemonic('c');
 		btnConfig.setContentAreaFilled(false);
 		btnConfig.setSelected(false);
+		btnConfig.setToolTipText("Configura los datos de conexion");
 		btnConfig.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				confg();
@@ -138,7 +140,9 @@ public class LogginS extends JFrame {
 
 
 	private void confg() {
-		
+		ConfigDB dialog = new ConfigDB(this);
+		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialog.setVisible(true);
 		
 	}
 

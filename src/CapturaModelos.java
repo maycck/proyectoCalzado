@@ -1,5 +1,5 @@
 import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.Dimension;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -8,13 +8,11 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JScrollPane;
 import javax.swing.JPanel;
-import java.awt.GridLayout;
-import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 
 public class CapturaModelos extends JInternalFrame {
 
@@ -78,8 +76,8 @@ public class CapturaModelos extends JInternalFrame {
 		getContentPane().add(btnAgregar);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setAutoscrolls(true);
 		scrollPane.setBounds(24, 132, 359, 123);
 		getContentPane().add(scrollPane);
@@ -109,7 +107,8 @@ public class CapturaModelos extends JInternalFrame {
 			panel.add(c);
 			x+=140;
 		}
-		panel.setBounds(0, 0, 1800, y+140);
-		panel.setBackground(Color.BLACK);
+		
+		panel.setPreferredSize(new Dimension(x+300,y+100));
+		
 	}
 }
