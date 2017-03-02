@@ -157,7 +157,31 @@ public class Consultas {
         }
         return false;
     }
-	
+	public static boolean InsertaInsumos(int id,String nombre, String unidad,int can, String linea, double precio,Conexion c)
+    {
+        PreparedStatement pst= null;
+		try{
+            String consulta="insert into insumos values (?,?,?,?,?,?)";
+            pst = c.getConexion().prepareStatement(consulta);
+            pst.setInt(1, id);
+            pst.setString(2, nombre);
+            pst.setString(3, unidad);
+            pst.setInt(4, can);
+            pst.setString(5, linea);
+            pst.setDouble(6, precio);
+//            pst.executeUpdate();
+            if(pst.executeUpdate()==1)
+            {
+                return true;
+            }     
+        }catch(Exception e){}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            }catch(Exception e){}
+        }
+        return false;
+    }
 	//-------- MODIFICACIONES ------------
 	
 	//-------- ELIMINACIONES -------------

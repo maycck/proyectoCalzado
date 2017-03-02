@@ -163,7 +163,7 @@ public class LogginS extends JFrame {
 				
 
 		}else{
-			JOptionPane.showMessageDialog(null, "Error al usuario o password incorrectos");
+			JOptionPane.showMessageDialog(null, "Error en usuario o password incorrectos\nSi los datos son correcto revisa la configuracion de la conexion");
 		}
 		pass.setText("");
 		if(te==1)
@@ -187,7 +187,6 @@ public class LogginS extends JFrame {
 	//Password
 	private boolean isPasswordCorrect(String usuario, char[] input) {
 	    boolean isCorrect = true;
-	    
 	    Conexion con=new Conexion();
 	    char [] correctPassword = Consultas.RetornaPass(usuario,con);
 	    nameuser=Consultas.RetornaUser(usuario, con);
