@@ -11,19 +11,6 @@ public class Consultas {
 	
 	//-------- CONSULTAS --------------
 	
-	//-------- INSERCIONES -------------
-	
-	//-------- MODIFICACIONES ------------
-	
-	//-------- ELIMINACIONES -------------
-	
-	
-	
-	
-	
-	
-	
-	//-----------FIN DE METODOS---------------------------
 	
 	public static char[] RetornaPass(String nick, Conexion c)
     {
@@ -77,13 +64,13 @@ public class Consultas {
         }
         return null;
 }
-	public static String RetornaIdprodainsert(Conexion c)
+	public static String RetornaId(Conexion c,String tabla)
     {
         PreparedStatement pst= null;
         ResultSet rs=null;
         int id=1;
 		try{
-            String consulta="select max(id_producto) from productos";
+            String consulta="select max(id) from "+tabla;
             pst = c.getConexion().prepareStatement(consulta);
             rs=pst.executeQuery();
             if(rs.absolute(1))
@@ -101,6 +88,46 @@ public class Consultas {
 		return "1";
         
     }
+	public static boolean CompruebaDup(String campo,String tabla,String value,Conexion c)
+    {
+        PreparedStatement pst= null;
+        ResultSet rs=null;
+		try{
+        	
+            String consulta="select "+campo+" from "+tabla+" where "+campo+"=?";
+            pst = c.getConexion().prepareStatement(consulta);
+            pst.setString(1, value);
+            rs=pst.executeQuery();
+            
+            if(rs.absolute(1))
+            {
+            	return true;
+            }
+            
+        }catch(Exception e){System.out.println("error");}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            if(rs!=null) rs.close();
+            }catch(Exception e){}
+        }
+        return false;
+    }
+
+	//-------- INSERCIONES -------------
+	
+	//-------- MODIFICACIONES ------------
+	
+	//-------- ELIMINACIONES -------------
+	
+	
+	
+	
+	
+	
+	
+	//-----------FIN DE METODOS---------------------------
+	/*
 	public static String RetornaIdVentainsert(Conexion c)
     {
         PreparedStatement pst= null;
@@ -560,5 +587,5 @@ public class Consultas {
         return null;
 }
 
-	
+	*/
 }
