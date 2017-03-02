@@ -35,6 +35,8 @@ public class CapturaInsumos extends JInternalFrame {
 		txtid.setBounds(138, 27, 86, 20);
 		getContentPane().add(txtid);
 		txtid.setColumns(10);
+		txtid.setHorizontalAlignment(SwingConstants.CENTER);
+		txtid.setEditable(false);
 		
 		JLabel lblId = new JLabel("id");
 		lblId.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -92,30 +94,25 @@ public class CapturaInsumos extends JInternalFrame {
 		getContentPane().add(txtpre);
 		txtpre.setColumns(10);
 		
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(CapturaInsumos.class.getResource("/img/X.png")));
-		label.setBounds(234, 30, 46, 14);
-		getContentPane().add(label);
+		JLabel lbl1 = new JLabel("");
+		lbl1.setIcon(new ImageIcon(CapturaInsumos.class.getResource("/img/X.png")));
+		lbl1.setBounds(234, 61, 46, 14);
+		getContentPane().add(lbl1);
 		
-		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon(CapturaInsumos.class.getResource("/img/X.png")));
-		label_1.setBounds(234, 61, 46, 14);
-		getContentPane().add(label_1);
+		JLabel lbl2 = new JLabel("");
+		lbl2.setIcon(new ImageIcon(CapturaInsumos.class.getResource("/img/X.png")));
+		lbl2.setBounds(234, 127, 46, 14);
+		getContentPane().add(lbl2);
 		
-		JLabel label_3 = new JLabel("");
-		label_3.setIcon(new ImageIcon(CapturaInsumos.class.getResource("/img/X.png")));
-		label_3.setBounds(234, 127, 46, 14);
-		getContentPane().add(label_3);
+		JLabel lbl3 = new JLabel("");
+		lbl3.setIcon(new ImageIcon(CapturaInsumos.class.getResource("/img/X.png")));
+		lbl3.setBounds(234, 164, 46, 14);
+		getContentPane().add(lbl3);
 		
-		JLabel label_4 = new JLabel("");
-		label_4.setIcon(new ImageIcon(CapturaInsumos.class.getResource("/img/X.png")));
-		label_4.setBounds(234, 164, 46, 14);
-		getContentPane().add(label_4);
-		
-		JLabel label_5 = new JLabel("");
-		label_5.setIcon(new ImageIcon(CapturaInsumos.class.getResource("/img/X.png")));
-		label_5.setBounds(234, 202, 46, 14);
-		getContentPane().add(label_5);
+		JLabel lbl4 = new JLabel("");
+		lbl4.setIcon(new ImageIcon(CapturaInsumos.class.getResource("/img/X.png")));
+		lbl4.setBounds(234, 202, 46, 14);
+		getContentPane().add(lbl4);
 		
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.setMnemonic('A');

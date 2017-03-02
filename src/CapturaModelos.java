@@ -31,6 +31,8 @@ public class CapturaModelos extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		txtid = new JTextField();
+		txtid.setHorizontalAlignment(SwingConstants.CENTER);
+		txtid.setEditable(false);
 		txtid.setBounds(172, 27, 86, 20);
 		getContentPane().add(txtid);
 		txtid.setColumns(10);
@@ -55,20 +57,14 @@ public class CapturaModelos extends JInternalFrame {
 		getContentPane().add(txtnom);
 		txtnom.setColumns(10);
 		
-		JComboBox cmbuni = new JComboBox();
-		cmbuni.setModel(new DefaultComboBoxModel(new String[] {"m", "dm", "pieza", "par"}));
-		cmbuni.setBounds(172, 91, 86, 20);
-		getContentPane().add(cmbuni);
+		JComboBox cmbsue = new JComboBox();
+		cmbsue.setBounds(172, 91, 86, 20);
+		getContentPane().add(cmbsue);
 		
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(CapturaInsumos.class.getResource("/img/X.png")));
-		label.setBounds(268, 30, 46, 14);
-		getContentPane().add(label);
-		
-		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon(CapturaInsumos.class.getResource("/img/X.png")));
-		label_1.setBounds(268, 61, 46, 14);
-		getContentPane().add(label_1);
+		JLabel lbl1 = new JLabel("");
+		lbl1.setIcon(new ImageIcon(CapturaInsumos.class.getResource("/img/X.png")));
+		lbl1.setBounds(268, 61, 46, 14);
+		getContentPane().add(lbl1);
 		
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.setMnemonic('A');
@@ -79,12 +75,17 @@ public class CapturaModelos extends JInternalFrame {
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setAutoscrolls(true);
-		scrollPane.setBounds(24, 132, 359, 123);
+		scrollPane.setBounds(55, 132, 302, 123);
 		getContentPane().add(scrollPane);
 		
 		panel = new JPanel();
 		scrollPane.setViewportView(panel);
 		panel.setLayout(null);
+		
+		JLabel lbl2 = new JLabel("");
+		lbl2.setIcon(new ImageIcon(CapturaModelos.class.getResource("/img/X.png")));
+		lbl2.setBounds(367, 185, 46, 14);
+		getContentPane().add(lbl2);
 		
 		
 		llamadoprueba();

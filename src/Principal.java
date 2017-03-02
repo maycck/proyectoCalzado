@@ -58,34 +58,37 @@ public class Principal extends JFrame {
 			public void valueChanged(TreeSelectionEvent arg0) {
 				switch(tree.getSelectionPath().getLastPathComponent().toString())
 				{
-				case "Capturar insumos":
+				case "Capturar Insumos":
 					CapturaInsumos var = new CapturaInsumos();
 					var.setVisible(true);
 					desktopPane.add(var);
 					tree.setSelectionRow(tree.getMinSelectionRow()-1);
 					break;
-				case "Captura Modelos":
+				case "Capturar Modelos":
 					CapturaModelos prod=new CapturaModelos();
 					prod.setVisible(true);
 					desktopPane.add(prod);
 					tree.setSelectionRow(tree.getMinSelectionRow()-2);
 					break;
-	/*			case "Agregar usuario":
-					addUser au=new addUser();
-					au.setVisible(true);
-					desktopPane.add(au);
-					tree.setSelectionRow(tree.getMinSelectionRow()-1);
+				case "Capturar Suelas":
+					CapturaSuelas su=new CapturaSuelas();
+					su.setVisible(true);
+					desktopPane.add(su);
+					tree.setSelectionRow(tree.getMinSelectionRow()-3);
 					break;
-				case "Lista de usuarios":
-					Usuarios us=new Usuarios();
-					us.setVisible(true);
-					desktopPane.add(us);
-					tree.setSelectionRow(tree.getMinSelectionRow()-2);
+				case "Capturar Tallas":
+					CapturaTallas ta=new CapturaTallas();
+					ta.setVisible(true);
+					desktopPane.add(ta);
+					tree.setSelectionRow(tree.getMinSelectionRow()-4);
 					break;
-				case "Reporte de Ventas":
-					tree.setSelectionRow(tree.getMinSelectionRow()-1);
+				case "Capturar Colores":
+					CapturaColores colo=new CapturaColores();
+					colo.setVisible(true);
+					desktopPane.add(colo);
+					tree.setSelectionRow(tree.getMinSelectionRow()-5);
 					break;
-		*/		}
+			}
 				
 			}
 		});
@@ -99,8 +102,11 @@ public class Principal extends JFrame {
 					{
 						DefaultMutableTreeNode node_1;
 						node_1 = new DefaultMutableTreeNode("Inventario");
-							node_1.add(new DefaultMutableTreeNode("Capturar insumos"));
-							node_1.add(new DefaultMutableTreeNode("Captura Modelos"));
+							node_1.add(new DefaultMutableTreeNode("Capturar Insumos"));
+							node_1.add(new DefaultMutableTreeNode("Capturar Modelos"));
+							node_1.add(new DefaultMutableTreeNode("Capturar Suelas"));
+							node_1.add(new DefaultMutableTreeNode("Capturar Tallas"));
+							node_1.add(new DefaultMutableTreeNode("Capturar Colores"));
 						add(node_1);
 						node_1 = new DefaultMutableTreeNode("");
 							node_1.add(new DefaultMutableTreeNode(""));
