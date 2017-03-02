@@ -7,9 +7,11 @@ import java.net.URL;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 public class CapturaColores extends JInternalFrame {
@@ -88,7 +90,29 @@ public class CapturaColores extends JInternalFrame {
 		
 	}
 	private void agregar() {
+		Icon im=new ImageIcon(bien);
+		if(lbl1.getIcon().toString().equals(im.toString()))
+		{
+			Conexion c=new Conexion();
+			if(Consultas.InsertaColores(Integer.parseInt(txtid.getText()), txtnom.getText(), c))
+				{
+					JOptionPane.showMessageDialog(null, "Usuario agregado con exito ");
+					txtid.setText(Consultas.RetornaId(c, "colores"));
+					txtnom.setText("");
+					lblreset();
+					txtnom.requestFocus();
+				}
+			else
+				JOptionPane.showMessageDialog(null, "Error al insertar inesperado");
+			
+			c.closeConexion();
+		}else{
+			JOptionPane.showMessageDialog(null, "oh no faltan completar algunos campos ");
+		}
 		
-		
+	}
+	private void lblreset()
+	{
+		lbl1.setIcon(new ImageIcon(mal));
 	}
 }
