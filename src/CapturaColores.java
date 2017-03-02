@@ -96,7 +96,7 @@ public class CapturaColores extends JInternalFrame {
 			Conexion c=new Conexion();
 			if(Consultas.InsertaColores(Integer.parseInt(txtid.getText()), txtnom.getText(), c))
 				{
-					JOptionPane.showMessageDialog(null, "Usuario agregado con exito ");
+					JOptionPane.showMessageDialog(null, "Color agregado con exito ");
 					txtid.setText(Consultas.RetornaId(c, "colores"));
 					txtnom.setText("");
 					lblreset();
