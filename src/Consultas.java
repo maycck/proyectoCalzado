@@ -115,6 +115,48 @@ public class Consultas {
     }
 
 	//-------- INSERCIONES -------------
+	public static boolean InsertaColores(int id,String nombre,Conexion c)
+    {
+        PreparedStatement pst= null;
+		try{
+            String consulta="insert into colores values (?,?)";
+            pst = c.getConexion().prepareStatement(consulta);
+            pst.setInt(1, id);
+            pst.setString(2, nombre);
+//            pst.executeUpdate();
+            if(pst.executeUpdate()==1)
+            {
+                return true;
+            }     
+        }catch(Exception e){}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            }catch(Exception e){}
+        }
+        return false;
+    }
+	public static boolean InsertaTallas(int id,String talla,Conexion c)
+    {
+        PreparedStatement pst= null;
+		try{
+            String consulta="insert into tallas values (?,?)";
+            pst = c.getConexion().prepareStatement(consulta);
+            pst.setInt(1, id);
+            pst.setString(2, talla);
+//            pst.executeUpdate();
+            if(pst.executeUpdate()==1)
+            {
+                return true;
+            }     
+        }catch(Exception e){}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            }catch(Exception e){}
+        }
+        return false;
+    }
 	
 	//-------- MODIFICACIONES ------------
 	
@@ -128,136 +170,8 @@ public class Consultas {
 	
 	//-----------FIN DE METODOS---------------------------
 	/*
-	public static String RetornaIdVentainsert(Conexion c)
-    {
-        PreparedStatement pst= null;
-        ResultSet rs=null;
-        int id=1;
-		try{
-            String consulta="select max(id_venta) from ventas";
-            pst = c.getConexion().prepareStatement(consulta);
-            rs=pst.executeQuery();
-            if(rs.absolute(1))
-            {
-            	return (rs.getInt(1)+1)+"";
-            }
-                   
-        }catch(Exception e){ System.out.println("error");}
-        finally{
-            try{
-            if(pst!=null) pst.close();
-            if(rs!=null) rs.close();
-            }catch(Exception e){}
-        }
-		return "1";
-        
-    }
-	public static String RetornaIdDetalle(Conexion c)
-    {
-        PreparedStatement pst= null;
-        ResultSet rs=null;
-        int id=1;
-		try{
-            String consulta="select max(id_detalle) from detalle";
-            pst = c.getConexion().prepareStatement(consulta);
-            rs=pst.executeQuery();
-            if(rs.absolute(1))
-            {
-            	return (rs.getInt(1)+1)+"";
-            }
-                   
-        }catch(Exception e){ System.out.println("error");}
-        finally{
-            try{
-            if(pst!=null) pst.close();
-            if(rs!=null) rs.close();
-            }catch(Exception e){}
-        }
-		return "1";
-        
-    }
-	public static String RetornaIdUserainsert(Conexion c)
-    {
-        PreparedStatement pst= null;
-        ResultSet rs=null;
-        int id=1;
-		try{
-            String consulta="select max(id_usuario) from usuario";
-            pst = c.getConexion().prepareStatement(consulta);
-            rs=pst.executeQuery();
-            if(rs.absolute(1))
-            {
-            	return (rs.getInt(1)+1)+"";
-            }
-                   
-        }catch(Exception e){ System.out.println("error");}
-        finally{
-            try{
-            if(pst!=null) pst.close();
-            if(rs!=null) rs.close();
-            }catch(Exception e){}
-        }
-		return "1";
-        
-    }
 	
-	public static boolean InsertaProducto(int id,String nombre, double preciou, double preciop, String des, int tipo,Conexion c)
-    {
-        PreparedStatement pst= null;
-		try{
-        	
-            String consulta="insert into productos values (?,?,?,?,?,?)";
-            pst = c.getConexion().prepareStatement(consulta);
-            pst.setInt(1, id);
-            pst.setString(2, nombre);
-            pst.setDouble(3, preciou);
-            pst.setDouble(4, preciop);
-            pst.setString(5, des);
-            pst.setInt(6, tipo);
-//            pst.executeUpdate();
-            
-            if(pst.executeUpdate()==1)
-            {
-                return true;
-            }
-            
-        }catch(Exception e){}
-        finally{
-            try{
-            if(pst!=null) pst.close();
-            }catch(Exception e){}
-        }
-        return false;
-    }
-	public static boolean InsertaDetalle(int id,int idp, int idv, int can, String nom, double precio,double total,int tipo,Conexion c)
-    {
-        PreparedStatement pst= null;
-		try{
-        	
-            String consulta="insert into detalle values (?,?,?,?,?,?,?,?)";
-            pst = c.getConexion().prepareStatement(consulta);
-            pst.setInt(1, id);
-            pst.setInt(2, idp);
-            pst.setInt(3, idv);
-            pst.setInt(4, can);
-            pst.setString(5, nom);
-            pst.setDouble(6, precio);
-            pst.setDouble(7, total);
-            pst.setInt(8, tipo);
-//            pst.executeUpdate();
-            if(pst.executeUpdate()==1)
-            {
-                return true;
-            }
-            
-        }catch(Exception e){}
-        finally{
-            try{
-            if(pst!=null) pst.close();
-            }catch(Exception e){}
-        }
-        return false;
-    }
+	
 	public static boolean InsertaDetalleSinIDP(int id, int idv, int can, String nom, double precio,double total,int tipo,Conexion c)
     {
         PreparedStatement pst= null;
