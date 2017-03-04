@@ -113,6 +113,42 @@ public class Consultas {
         }
         return false;
     }
+	public static String[][] RetornaArrayCT(String tabla, String colum,Conexion c)
+    {
+        PreparedStatement pst= null;
+        ResultSet rs=null;
+        ArrayList<String> arr=new ArrayList<>();
+        int row=0;
+		try{
+            String consulta="select * from "+tabla+" order by "+colum;
+            pst = c.getConexion().prepareStatement(consulta);
+            rs=pst.executeQuery();
+            while(rs.next())
+            {
+            	row++;
+            	arr.add(rs.getInt(1)+"");
+            	arr.add(rs.getString(2));
+            }
+            String array[][]=new String[row][2];
+            row=0;
+            for (int i = 0; i < array.length; i++) {
+				for (int j = 0; j < array[0].length; j++) {
+					array[i][j]=arr.get(row);row++;
+				}
+			}
+            return array;
+                   
+        }catch(Exception e){ System.out.println("error");}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            if(rs!=null) rs.close();
+            }catch(Exception e){}
+        }
+		return null;
+        
+    }
+	
 
 	//-------- INSERCIONES -------------
 	public static boolean InsertaColores(int id,String nombre,Conexion c)
@@ -169,6 +205,91 @@ public class Consultas {
             pst.setInt(4, can);
             pst.setString(5, linea);
             pst.setDouble(6, precio);
+//            pst.executeUpdate();
+            if(pst.executeUpdate()==1)
+            {
+                return true;
+            }     
+        }catch(Exception e){}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            }catch(Exception e){}
+        }
+        return false;
+    }
+	public static boolean InsertaSuelas(int id,String nombre,Conexion c)
+    {
+        PreparedStatement pst= null;
+		try{
+            String consulta="insert into suelas values (?,?)";
+            pst = c.getConexion().prepareStatement(consulta);
+            pst.setInt(1, id);
+            pst.setString(2, nombre);
+//            pst.executeUpdate();
+            if(pst.executeUpdate()==1)
+            {
+                return true;
+            }     
+        }catch(Exception e){}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            }catch(Exception e){}
+        }
+        return false;
+    }
+	public static boolean InsertaDetalleTallaColor(String tabla, int idMS,int idCT,Conexion c)
+    {
+        PreparedStatement pst= null;
+		try{
+            String consulta="insert into "+tabla+" values (?,?)";
+            pst = c.getConexion().prepareStatement(consulta);
+            pst.setInt(1, idMS);
+            pst.setInt(2, idCT);
+//            pst.executeUpdate();
+            if(pst.executeUpdate()==1)
+            {
+                return true;
+            }     
+        }catch(Exception e){}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            }catch(Exception e){}
+        }
+        return false;
+    }
+	public static boolean InsertaLinea(int id,String nombre,Conexion c)
+    {
+        PreparedStatement pst= null;
+		try{
+            String consulta="insert into linea values (?,?)";
+            pst = c.getConexion().prepareStatement(consulta);
+            pst.setInt(1, id);
+            pst.setString(2, nombre);
+//            pst.executeUpdate();
+            if(pst.executeUpdate()==1)
+            {
+                return true;
+            }     
+        }catch(Exception e){}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            }catch(Exception e){}
+        }
+        return false;
+    }
+	public static boolean InsertaModelos(int id,String nombre,int id_suela,Conexion c)
+    {
+        PreparedStatement pst= null;
+		try{
+            String consulta="insert into modelos values (?,?,?)";
+            pst = c.getConexion().prepareStatement(consulta);
+            pst.setInt(1, id);
+            pst.setString(2, nombre);
+            pst.setInt(3, id_suela);
 //            pst.executeUpdate();
             if(pst.executeUpdate()==1)
             {

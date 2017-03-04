@@ -54,7 +54,7 @@ public class CapturaInsumos extends JInternalFrame {
 		
 		JLabel lblNombre = new JLabel("Nombre");
 		lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNombre.setBounds(58, 55, 70, 14);
+		lblNombre.setBounds(58, 61, 70, 14);
 		getContentPane().add(lblNombre);
 		
 		JLabel lblUnidad = new JLabel("Unidad");

@@ -1,19 +1,22 @@
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+
+import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.SoftBevelBorder;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
@@ -46,12 +49,18 @@ public class Principal extends JFrame {
 		addtree(tree);
 		tree.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		scrollPane.setViewportView(tree);
+		tree.setOpaque(true);
+		scrollPane.setOpaque(true);
+		scrollPane.setBackground(new Color(132, 138, 120));
+		tree.setBackground(new Color(132, 138, 120));
+		contentPane.setBackground(new Color(132, 138, 120));
 		
 		JDesktopPane desktopPane = new JDesktopPane();
 		desktopPane.setToolTipText("");
 		desktopPane.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(169, 169, 169), new Color(105, 105, 105), new Color(230, 230, 250), new Color(0, 0, 0)));
 		desktopPane.setBounds(171, 5, 798, 331);
 		contentPane.add(desktopPane,BorderLayout.CENTER);
+		desktopPane.setBackground(new Color(132, 138, 120));
 		
 	
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
@@ -97,6 +106,30 @@ public class Principal extends JFrame {
 	}
 
 	private void addtree(JTree tree) {
+		tree.setCellRenderer(new DefaultTreeCellRenderer()
+        {
+            public Component getTreeCellRendererComponent(JTree pTree,
+                Object pValue, boolean pIsSelected, boolean pIsExpanded,
+                boolean pIsLeaf, int pRow, boolean pHasFocus)
+            {
+	    DefaultMutableTreeNode node = (DefaultMutableTreeNode)pValue;
+	    super.getTreeCellRendererComponent(pTree, pValue, pIsSelected,
+                    pIsExpanded, pIsLeaf, pRow, pHasFocus);
+	    setBackgroundNonSelectionColor(new Color(132, 138, 120));
+	    setBackgroundSelectionColor(new Color(220,210,199));
+	    setClosedIcon(new ImageIcon(getClass().getResource("img/X.png")));
+	    setOpenIcon(new ImageIcon(getClass().getResource("img/a.gif")));
+	 //   setIcon(new ImageIcon(getClass().getResource("img/a.gif")));
+	    setLeafIcon(new ImageIcon(getClass().getResource("img/X.png")));
+                if (node.isRoot())
+                {}
+	    else if (node.getChildCount() > 0)
+	       {}
+	    else if (pIsLeaf)
+	    {}// setBackgroundSelectionColor(Color.green);
+	    return (this);
+	}
+       });
 		tree.setModel(new DefaultTreeModel(
 				new DefaultMutableTreeNode("Sistema de Calzado artesanal") {
 					{
@@ -122,6 +155,7 @@ public class Principal extends JFrame {
 					}
 				}
 			));
+		
 		
 	}
 	public void habilitar(boolean hab)
