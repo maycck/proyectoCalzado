@@ -182,6 +182,33 @@ public class Consultas {
         }
         return false;
     }
+	public static boolean InsertaClientes(int id,String nombre, String apellidop,String apellidom,String direccion,String tel,String email,String rfc,Conexion c)
+	{
+		PreparedStatement pst= null;
+		try{
+            String consulta="insert into Clientes values (?,?,?,?,?,?,?,?)";
+            pst = c.getConexion().prepareStatement(consulta);
+            pst.setInt(1, id);
+            pst.setString(2, nombre);
+            pst.setString(3, apellidop);
+            pst.setString(4, apellidom);
+            pst.setString(5, direccion);
+            pst.setString(6, tel);
+            pst.setString(7, email);
+            pst.setString(8, rfc);
+//            pst.executeUpdate();
+            if(pst.executeUpdate()==1)
+            {
+                return true;
+            }     
+        }catch(Exception e){}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            }catch(Exception e){}
+        }
+        return false;
+	}
 	//-------- MODIFICACIONES ------------
 	
 	//-------- ELIMINACIONES -------------
