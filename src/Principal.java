@@ -67,8 +67,8 @@ public class Principal extends JFrame {
 			public void valueChanged(TreeSelectionEvent arg0) {
 				switch(tree.getSelectionPath().getLastPathComponent().toString())
 				{
-				case "Capturar Clientes":
-					CapturaClientes var = new CapturaClientes();
+				case "Capturar Insumos":
+					CapturaInsumos var = new CapturaInsumos();
 					var.setVisible(true);
 					desktopPane.add(var);
 					tree.setSelectionRow(tree.getMinSelectionRow()-1);
@@ -96,6 +96,12 @@ public class Principal extends JFrame {
 					colo.setVisible(true);
 					desktopPane.add(colo);
 					tree.setSelectionRow(tree.getMinSelectionRow()-5);
+					break;
+				case "Capturar Clientes":
+					CapturaClientes clie = new CapturaClientes();
+					clie.setVisible(true);
+					desktopPane.add(clie);
+					tree.setSelectionRow(tree.getMinSelectionRow()-1);
 					break;
 			}
 				
@@ -135,14 +141,14 @@ public class Principal extends JFrame {
 					{
 						DefaultMutableTreeNode node_1;
 						node_1 = new DefaultMutableTreeNode("Inventario");
-							node_1.add(new DefaultMutableTreeNode("Capturar Clientes"));
+							node_1.add(new DefaultMutableTreeNode("Capturar Insumos"));
 							node_1.add(new DefaultMutableTreeNode("Capturar Modelos"));
 							node_1.add(new DefaultMutableTreeNode("Capturar Suelas"));
 							node_1.add(new DefaultMutableTreeNode("Capturar Tallas"));
 							node_1.add(new DefaultMutableTreeNode("Capturar Colores"));
 						add(node_1);
-						node_1 = new DefaultMutableTreeNode("");
-							node_1.add(new DefaultMutableTreeNode(""));
+						node_1 = new DefaultMutableTreeNode("Proceso");
+							node_1.add(new DefaultMutableTreeNode("Capturar Clientes"));
 							node_1.add(new DefaultMutableTreeNode(""));
 						add(node_1);
 							node_1 = new DefaultMutableTreeNode("");
