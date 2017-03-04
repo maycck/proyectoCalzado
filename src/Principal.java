@@ -67,8 +67,8 @@ public class Principal extends JFrame {
 			public void valueChanged(TreeSelectionEvent arg0) {
 				switch(tree.getSelectionPath().getLastPathComponent().toString())
 				{
-				case "Capturar Insumos":
-					CapturaInsumos var = new CapturaInsumos();
+				case "Capturar Clientes":
+					CapturaClientes var = new CapturaClientes();
 					var.setVisible(true);
 					desktopPane.add(var);
 					tree.setSelectionRow(tree.getMinSelectionRow()-1);
@@ -135,7 +135,7 @@ public class Principal extends JFrame {
 					{
 						DefaultMutableTreeNode node_1;
 						node_1 = new DefaultMutableTreeNode("Inventario");
-							node_1.add(new DefaultMutableTreeNode("Capturar Insumos"));
+							node_1.add(new DefaultMutableTreeNode("Capturar Clientes"));
 							node_1.add(new DefaultMutableTreeNode("Capturar Modelos"));
 							node_1.add(new DefaultMutableTreeNode("Capturar Suelas"));
 							node_1.add(new DefaultMutableTreeNode("Capturar Tallas"));
