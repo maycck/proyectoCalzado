@@ -139,13 +139,15 @@ public class Principal extends JFrame {
 		tree.setModel(new DefaultTreeModel(
 				new DefaultMutableTreeNode("Sistema de Calzado artesanal") {
 					{
-						DefaultMutableTreeNode node_1;
+						DefaultMutableTreeNode node_1,node_2;
 						node_1 = new DefaultMutableTreeNode("Inventario");
-							node_1.add(new DefaultMutableTreeNode("Capturar Insumos"));
-							node_1.add(new DefaultMutableTreeNode("Capturar Modelos"));
-							node_1.add(new DefaultMutableTreeNode("Capturar Suelas"));
-							node_1.add(new DefaultMutableTreeNode("Capturar Tallas"));
-							node_1.add(new DefaultMutableTreeNode("Capturar Colores"));
+						node_2 = new DefaultMutableTreeNode("Captura de informacion");
+							node_2.add(new DefaultMutableTreeNode("Capturar Insumos"));
+							node_2.add(new DefaultMutableTreeNode("Capturar Modelos"));
+							node_2.add(new DefaultMutableTreeNode("Capturar Suelas"));
+							node_2.add(new DefaultMutableTreeNode("Capturar Tallas"));
+							node_2.add(new DefaultMutableTreeNode("Capturar Colores"));
+							node_1.add(node_2);
 						add(node_1);
 						node_1 = new DefaultMutableTreeNode("Proceso");
 							node_1.add(new DefaultMutableTreeNode("Capturar Clientes"));
