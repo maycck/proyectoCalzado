@@ -103,6 +103,42 @@ public class Principal extends JFrame {
 					desktopPane.add(clie);
 					tree.setSelectionRow(tree.getMinSelectionRow()-1);
 					break;
+				case "Gestion de consumos":
+					CapturaConsumos cc = new CapturaConsumos();
+					cc.setVisible(true);
+					desktopPane.add(cc);
+					tree.setSelectionRow(tree.getMinSelectionRow()-1);
+					break;
+				case "Insumos":
+					MostrarInsumos gin = new MostrarInsumos();
+					gin.setVisible(true);
+					desktopPane.add(gin);
+					tree.setSelectionRow(tree.getMinSelectionRow()-2);
+					break;
+				case "Colores":
+					MostrarColores gco = new MostrarColores();
+					gco.setVisible(true);
+					desktopPane.add(gco);
+					tree.setSelectionRow(tree.getMinSelectionRow()-3);
+					break;
+				case "Clientes":
+					MostrarClientes gcl = new MostrarClientes();
+					gcl.setVisible(true);
+					desktopPane.add(gcl);
+					tree.setSelectionRow(tree.getMinSelectionRow()-4);
+					break;
+				case "Lineas":
+					MostrarLinea gli = new MostrarLinea();
+					gli.setVisible(true);
+					desktopPane.add(gli);
+					tree.setSelectionRow(tree.getMinSelectionRow()-5);
+					break;
+				case "Tallas":
+					MostrarTallas gta = new MostrarTallas();
+					gta.setVisible(true);
+					desktopPane.add(gta);
+					tree.setSelectionRow(tree.getMinSelectionRow()-6);
+					break;
 			}
 				
 			}
@@ -112,34 +148,34 @@ public class Principal extends JFrame {
 	}
 
 	private void addtree(JTree tree) {
-		tree.setCellRenderer(new DefaultTreeCellRenderer()
-        {
-            public Component getTreeCellRendererComponent(JTree pTree,
-                Object pValue, boolean pIsSelected, boolean pIsExpanded,
-                boolean pIsLeaf, int pRow, boolean pHasFocus)
-            {
-	    DefaultMutableTreeNode node = (DefaultMutableTreeNode)pValue;
-	    super.getTreeCellRendererComponent(pTree, pValue, pIsSelected,
-                    pIsExpanded, pIsLeaf, pRow, pHasFocus);
-	    setBackgroundNonSelectionColor(new Color(132, 138, 120));
-	    setBackgroundSelectionColor(new Color(220,210,199));
-	    setClosedIcon(new ImageIcon(getClass().getResource("img/X.png")));
-	    setOpenIcon(new ImageIcon(getClass().getResource("img/a.gif")));
-	 //   setIcon(new ImageIcon(getClass().getResource("img/a.gif")));
-	    setLeafIcon(new ImageIcon(getClass().getResource("img/X.png")));
-                if (node.isRoot())
-                {}
-	    else if (node.getChildCount() > 0)
-	       {}
-	    else if (pIsLeaf)
-	    {}// setBackgroundSelectionColor(Color.green);
-	    return (this);
-	}
-       });
+//		tree.setCellRenderer(new DefaultTreeCellRenderer()
+//        {
+//            public Component getTreeCellRendererComponent(JTree pTree,
+//                Object pValue, boolean pIsSelected, boolean pIsExpanded,
+//                boolean pIsLeaf, int pRow, boolean pHasFocus)
+//            {
+//	    DefaultMutableTreeNode node = (DefaultMutableTreeNode)pValue;
+//	    super.getTreeCellRendererComponent(pTree, pValue, pIsSelected,
+//                    pIsExpanded, pIsLeaf, pRow, pHasFocus);
+//	    setBackgroundNonSelectionColor(new Color(132, 138, 120));
+//	    setBackgroundSelectionColor(new Color(220,210,199));
+//	    setClosedIcon(new ImageIcon(getClass().getResource("img/X.png")));
+//	    setOpenIcon(new ImageIcon(getClass().getResource("img/a.gif")));
+//	 //   setIcon(new ImageIcon(getClass().getResource("img/a.gif")));
+//	    setLeafIcon(new ImageIcon(getClass().getResource("img/X.png")));
+//                if (node.isRoot())
+//                {}
+//	    else if (node.getChildCount() > 0)
+//	       {}
+//	    else if (pIsLeaf)
+//	    {}// setBackgroundSelectionColor(Color.green);
+//	    return (this);
+//	}
+//       });
 		tree.setModel(new DefaultTreeModel(
 				new DefaultMutableTreeNode("Sistema de Calzado artesanal") {
 					{
-						DefaultMutableTreeNode node_1,node_2;
+						DefaultMutableTreeNode node_1,node_2,node_3;
 						node_1 = new DefaultMutableTreeNode("Inventario");
 						node_2 = new DefaultMutableTreeNode("Captura de informacion");
 							node_2.add(new DefaultMutableTreeNode("Capturar Insumos"));
@@ -148,6 +184,14 @@ public class Principal extends JFrame {
 							node_2.add(new DefaultMutableTreeNode("Capturar Tallas"));
 							node_2.add(new DefaultMutableTreeNode("Capturar Colores"));
 							node_1.add(node_2);
+						node_3 = new DefaultMutableTreeNode("Gestion de informacion");
+							node_3.add(new DefaultMutableTreeNode("Gestion de consumos"));
+							node_3.add(new DefaultMutableTreeNode("Insumos"));
+							node_3.add(new DefaultMutableTreeNode("Colores"));
+							node_3.add(new DefaultMutableTreeNode("Clientes"));
+							node_3.add(new DefaultMutableTreeNode("Lineas"));
+							node_3.add(new DefaultMutableTreeNode("Tallas"));
+							node_1.add(node_3);
 						add(node_1);
 						node_1 = new DefaultMutableTreeNode("Proceso");
 							node_1.add(new DefaultMutableTreeNode("Capturar Clientes"));

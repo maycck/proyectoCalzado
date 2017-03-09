@@ -163,9 +163,9 @@ public class CapturaModelos extends JInternalFrame {
 		arrs=Consultas.RetornaArrayCT("suelas","nombre", co);
 		arrl=Consultas.RetornaArrayCT("linea","nombre", co);
 		co.closeConexion();
+		if(arrs==null)
+			JOptionPane.showMessageDialog(null, "Agrega primero suelas");
 		if(arr!=null && arrs!=null){
-			if(arrs==null)
-				JOptionPane.showMessageDialog(null, "Agrega primero suelas");
 			ChkBoxes();
 			eventosF();
 		}
@@ -281,21 +281,25 @@ public class CapturaModelos extends JInternalFrame {
 			{
 				int x=Integer.parseInt(Consultas.RetornaId(c, "linea"));
 				if(Consultas.InsertaLinea(x,txtnue.getText(),c)){
-					if(Consultas.InsertaDetalleTallaColor("detalle_linea", Integer.parseInt(txtid.getText()),x, c))
+					int idB=Integer.parseInt(Consultas.RetornaId(c, "detalle_linea"));
+					if(Consultas.InsertaDetalleTallaColor("detalle_linea",idB, Integer.parseInt(txtid.getText()),x, c))
 					JOptionPane.showMessageDialog(null, "Nueva linea agregada");
 				}
 			}else{
-				if(cblin.getSelectedIndex()>0)
-				if(Consultas.InsertaDetalleTallaColor("detalle_linea", Integer.parseInt(txtid.getText()),
+				if(cblin.getSelectedIndex()>0){
+					int idB=Integer.parseInt(Consultas.RetornaId(c, "detalle_linea"));
+				if(Consultas.InsertaDetalleTallaColor("detalle_linea",idB, Integer.parseInt(txtid.getText()),
 						Integer.parseInt(arrl[cblin.getSelectedIndex()-1][0]), c))
 				;
+				}
 			}
 			if(Consultas.InsertaModelos(Integer.parseInt(txtid.getText()), txtnom.getText(),Integer.parseInt(arrs[cbsue.getSelectedIndex()][0]), c))
 				{
 				for (int i = 0; i < arr.length; i++) {
 					if(chk[i].isSelected())
 					{
-						if(!Consultas.InsertaDetalleTallaColor("detalle_color", Integer.parseInt(txtid.getText()), Integer.parseInt(arr[i][0]), c))
+						int idB=Integer.parseInt(Consultas.RetornaId(c, "detalle_color"));
+						if(!Consultas.InsertaDetalleTallaColor("detalle_color",idB, Integer.parseInt(txtid.getText()), Integer.parseInt(arr[i][0]), c))
 						{
 							JOptionPane.showMessageDialog(null, "Error al agregar color "+arr[i][1]);
 						}

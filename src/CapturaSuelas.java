@@ -187,7 +187,9 @@ public class CapturaSuelas extends JInternalFrame {
 				for (int i = 0; i < arr.length; i++) {
 					if(chk[i].isSelected())
 					{
-						if(!Consultas.InsertaDetalleTallaColor("detalle_talla", Integer.parseInt(txtid.getText()), Integer.parseInt(arr[i][0]), c))
+						
+						int idB=Integer.parseInt(Consultas.RetornaId(c, "detalle_talla"));
+						if(!Consultas.InsertaDetalleTallaColor("detalle_talla",idB, Integer.parseInt(txtid.getText()), Integer.parseInt(arr[i][0]), c))
 						{
 							JOptionPane.showMessageDialog(null, "Error al agregar talla "+arr[i][1]);
 						}

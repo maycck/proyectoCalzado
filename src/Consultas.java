@@ -88,6 +88,30 @@ public class Consultas {
 		return "1";
         
     }
+	public static String RetornaColumbyID(String tabla, String column, int id,Conexion c)
+    {
+        PreparedStatement pst= null;
+        ResultSet rs=null;
+		try{
+            String consulta="select "+column+" from "+tabla+" where id=?";
+            pst = c.getConexion().prepareStatement(consulta);
+            pst.setInt(1, id);
+            rs=pst.executeQuery();
+            if(rs.absolute(1))
+            {
+            	return rs.getString(1);
+            }
+                   
+        }catch(Exception e){ System.out.println("error");}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            if(rs!=null) rs.close();
+            }catch(Exception e){}
+        }
+		return null;
+        
+    }
 	public static boolean CompruebaDup(String campo,String tabla,String value,Conexion c)
     {
         PreparedStatement pst= null;
@@ -148,8 +172,110 @@ public class Consultas {
 		return null;
         
     }
-	
-
+	public static String[][] RetornaArraybyColumConsumos(String tabla, int colum,Conexion c)
+    {
+        PreparedStatement pst= null;
+        ResultSet rs=null;
+        ArrayList<String> arr=new ArrayList<>();
+        int row=0;
+		try{
+            String consulta="select * from "+tabla+" where id_modelo="+colum;
+            pst = c.getConexion().prepareStatement(consulta);
+            rs=pst.executeQuery();
+            while(rs.next())
+            {
+            	row++;
+            	arr.add(rs.getInt(1)+"");
+            	arr.add(rs.getInt(2)+"");
+            	arr.add(rs.getInt(3)+"");
+            	arr.add(rs.getDouble(4)+"");
+            	arr.add(rs.getDouble(5)+"");
+            }
+            String array[][]=new String[row][5];
+            row=0;
+            for (int i = 0; i < array.length; i++) {
+				for (int j = 0; j < array[0].length; j++) {
+					array[i][j]=arr.get(row);row++;
+				}
+			}
+            return array;
+                   
+        }catch(Exception e){ System.out.println("error");}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            if(rs!=null) rs.close();
+            }catch(Exception e){}
+        }
+		return null;
+        
+    }
+	public static String[][] RetornaArrayClientes(Conexion c)
+    {
+        PreparedStatement pst= null;
+        ResultSet rs=null;
+        ArrayList<String> arr=new ArrayList<>();
+        int row=0;
+		try{
+            String consulta="select * from clientes";
+            pst = c.getConexion().prepareStatement(consulta);
+            rs=pst.executeQuery();
+            while(rs.next())
+            {
+            	row++;
+            	arr.add(rs.getInt(1)+"");
+            	arr.add(rs.getString(2)+""); //importante checar el tipo que regresa si es Srting con getString si es int con getInt,etc
+            	arr.add(rs.getString(3)+"");
+            	arr.add(rs.getString(4)+"");
+            	arr.add(rs.getString(5)+"");
+            	arr.add(rs.getString(6)+"");
+            	arr.add(rs.getString(7)+"");
+            	arr.add(rs.getString(8)+"");
+            }
+            String array[][]=new String[row][8]; //8 numero de campos
+            row=0;
+            for (int i = 0; i < array.length; i++) {
+				for (int j = 0; j < array[0].length; j++) {
+					array[i][j]=arr.get(row);row++;
+				}
+			}
+            return array;
+                   
+        }catch(Exception e){ System.out.println("error");}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            if(rs!=null) rs.close();
+            }catch(Exception e){}
+        }
+		return null;
+        
+    }
+	public static String RetornaValorbyTabla(String tabla,String column,String condicion1,String condicion2,Conexion c)
+    {
+        PreparedStatement pst= null;
+        ResultSet rs=null;
+        String res="";
+		try{
+            String consulta="select "+column+" from "+tabla+" where "+condicion1+"="+condicion2;
+            pst = c.getConexion().prepareStatement(consulta);
+            rs=pst.executeQuery();
+            if(rs.next())
+            {
+            	res=rs.getString(1);
+            }
+            return res;
+                   
+        }catch(Exception e){ System.out.println("error");}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            if(rs!=null) rs.close();
+            }catch(Exception e){}
+        }
+		return "";
+        
+    }
 	//-------- INSERCIONES -------------
 	public static boolean InsertaColores(int id,String nombre,Conexion c)
     {
@@ -239,14 +365,15 @@ public class Consultas {
         }
         return false;
     }
-	public static boolean InsertaDetalleTallaColor(String tabla, int idMS,int idCT,Conexion c)
+	public static boolean InsertaDetalleTallaColor(String tabla,int id, int idMS,int idCT,Conexion c)
     {
         PreparedStatement pst= null;
 		try{
-            String consulta="insert into "+tabla+" values (?,?)";
+            String consulta="insert into "+tabla+" values (?,?,?)";
             pst = c.getConexion().prepareStatement(consulta);
-            pst.setInt(1, idMS);
-            pst.setInt(2, idCT);
+            pst.setInt(1, id);
+            pst.setInt(2, idMS);
+            pst.setInt(3, idCT);
 //            pst.executeUpdate();
             if(pst.executeUpdate()==1)
             {
@@ -330,10 +457,76 @@ public class Consultas {
         }
         return false;
 	}
+	public static boolean InsertaConsumos(int id,int id_modelo, int id_insumo, double tiempo, double costo,Conexion c)
+    {
+        PreparedStatement pst= null;
+		try{
+            String consulta="insert into consumos values (?,?,?,?,?)";
+            pst = c.getConexion().prepareStatement(consulta);
+            pst.setInt(1, id);
+            pst.setInt(2, id_modelo);
+            pst.setInt(3, id_insumo);
+            pst.setDouble(4, tiempo);
+            pst.setDouble(5, costo);
+//            pst.executeUpdate();
+            if(pst.executeUpdate()==1)
+            {
+                return true;
+            }     
+        }catch(Exception e){}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            }catch(Exception e){}
+        }
+        return false;
+    }
 	//-------- MODIFICACIONES ------------
-	
+	public static boolean ModificaGeneral(String tabla,String column, String value, String condicion1,String condicion2,Conexion c)
+    {
+        PreparedStatement pst= null;
+		try{
+        	
+            String consulta="update "+tabla+" set "+column+"=? where "+condicion1+"="+condicion2;
+            pst = c.getConexion().prepareStatement(consulta);
+            pst.setString(1, value);
+            pst.executeUpdate();
+            
+            if(pst.executeUpdate()==1)
+            {
+                return true;
+            }
+            
+        }catch(Exception e){ System.out.println("Error en la consulta");}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            }catch(Exception e){}
+        }
+        return false;
+    }
 	//-------- ELIMINACIONES -------------
-	
+	public static boolean EliminaGeneral(String tabla, String condicion1,String condicion2,Conexion c)
+    {
+        PreparedStatement pst= null;
+		try{
+        	
+            String consulta="delete from "+tabla+" where "+condicion1+"="+condicion2;
+            pst = c.getConexion().prepareStatement(consulta);
+            pst.executeUpdate();
+            if(pst.executeUpdate()==1)
+            {
+                return true;
+            }
+            
+        }catch(Exception e){ System.out.println("Error en la consulta");}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            }catch(Exception e){}
+        }
+        return false;
+    }
 	
 	
 	
