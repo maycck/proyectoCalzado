@@ -796,9 +796,7 @@ public class Consultas {
     }
 	
 	
-	
-	
-	
+
 	
 	//-----------FIN DE METODOS---------------------------
 	/*

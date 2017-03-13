@@ -199,6 +199,7 @@ public class Principal extends JFrame {
 							node_2.add(new DefaultMutableTreeNode("Capturar Tallas"));
 							node_2.add(new DefaultMutableTreeNode("Capturar Colores"));
 							node_1.add(node_2);
+							
 						node_3 = new DefaultMutableTreeNode("Gestion de informacion");
 							node_3.add(new DefaultMutableTreeNode("Consumos"));
 							node_3.add(new DefaultMutableTreeNode("Insumos"));
