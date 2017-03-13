@@ -67,6 +67,9 @@ public class Principal extends JFrame {
 			public void valueChanged(TreeSelectionEvent arg0) {
 				switch(tree.getSelectionPath().getLastPathComponent().toString())
 				{
+				///inventario ---------------------
+				
+				///Captura informacion --------------- node
 				case "Capturar Insumos":
 					CapturaInsumos var = new CapturaInsumos();
 					var.setVisible(true);
@@ -97,13 +100,9 @@ public class Principal extends JFrame {
 					desktopPane.add(colo);
 					tree.setSelectionRow(tree.getMinSelectionRow()-5);
 					break;
-				case "Capturar Clientes":
-					CapturaClientes clie = new CapturaClientes();
-					clie.setVisible(true);
-					desktopPane.add(clie);
-					tree.setSelectionRow(tree.getMinSelectionRow()-1);
-					break;
-				case "Gestion de consumos":
+					
+				///Gestiona informacion  ------------------------ node
+				case "Consumos":
 					CapturaConsumos cc = new CapturaConsumos();
 					cc.setVisible(true);
 					desktopPane.add(cc);
@@ -121,23 +120,39 @@ public class Principal extends JFrame {
 					desktopPane.add(gco);
 					tree.setSelectionRow(tree.getMinSelectionRow()-3);
 					break;
-				case "Clientes":
-					MostrarClientes gcl = new MostrarClientes();
-					gcl.setVisible(true);
-					desktopPane.add(gcl);
-					tree.setSelectionRow(tree.getMinSelectionRow()-4);
-					break;
 				case "Lineas":
 					MostrarLinea gli = new MostrarLinea();
 					gli.setVisible(true);
 					desktopPane.add(gli);
-					tree.setSelectionRow(tree.getMinSelectionRow()-5);
+					tree.setSelectionRow(tree.getMinSelectionRow()-4);
 					break;
 				case "Tallas":
 					MostrarTallas gta = new MostrarTallas();
 					gta.setVisible(true);
 					desktopPane.add(gta);
+					tree.setSelectionRow(tree.getMinSelectionRow()-5);
+					break;
+				case "Suelas":
+					MostrarSuelas gsu = new MostrarSuelas();
+					gsu.setVisible(true);
+					desktopPane.add(gsu);
 					tree.setSelectionRow(tree.getMinSelectionRow()-6);
+					break;
+					
+				///Proceso ---------------------------------------
+					
+				///Clientes --------------------------------------- node
+				case "Capturar Clientes":
+					CapturaClientes clie = new CapturaClientes();
+					clie.setVisible(true);
+					desktopPane.add(clie);
+					tree.setSelectionRow(tree.getMinSelectionRow()-1);
+					break;
+				case "Gestiona Clientes":
+					MostrarClientes gcl = new MostrarClientes();
+					gcl.setVisible(true);
+					desktopPane.add(gcl);
+					tree.setSelectionRow(tree.getMinSelectionRow()-2);
 					break;
 			}
 				
@@ -185,17 +200,19 @@ public class Principal extends JFrame {
 							node_2.add(new DefaultMutableTreeNode("Capturar Colores"));
 							node_1.add(node_2);
 						node_3 = new DefaultMutableTreeNode("Gestion de informacion");
-							node_3.add(new DefaultMutableTreeNode("Gestion de consumos"));
+							node_3.add(new DefaultMutableTreeNode("Consumos"));
 							node_3.add(new DefaultMutableTreeNode("Insumos"));
 							node_3.add(new DefaultMutableTreeNode("Colores"));
-							node_3.add(new DefaultMutableTreeNode("Clientes"));
 							node_3.add(new DefaultMutableTreeNode("Lineas"));
 							node_3.add(new DefaultMutableTreeNode("Tallas"));
+							node_3.add(new DefaultMutableTreeNode("Suelas"));
 							node_1.add(node_3);
 						add(node_1);
 						node_1 = new DefaultMutableTreeNode("Proceso");
-							node_1.add(new DefaultMutableTreeNode("Capturar Clientes"));
-							node_1.add(new DefaultMutableTreeNode(""));
+							node_2 = new DefaultMutableTreeNode("Clientes");
+							node_2.add(new DefaultMutableTreeNode("Capturar Clientes"));
+							node_2.add(new DefaultMutableTreeNode("Gestiona Clientes"));
+							node_1.add(node_2);
 						add(node_1);
 							node_1 = new DefaultMutableTreeNode("");
 							node_1.add(new DefaultMutableTreeNode(""));

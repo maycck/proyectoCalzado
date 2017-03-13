@@ -172,6 +172,73 @@ public class Consultas {
 		return null;
         
     }
+	public static String[] RetornaArrayDetalleImg(String tabla, String column, int id,Conexion c)
+    {
+        PreparedStatement pst= null;
+        ResultSet rs=null;
+        ArrayList<String> arr=new ArrayList<>();
+        int row=0;
+		try{
+            String consulta="select * from "+tabla+" where id_modelo="+id;
+            pst = c.getConexion().prepareStatement(consulta);
+            System.out.println(id+" Consulta "+consulta);
+            rs=pst.executeQuery();
+            while(rs.next())
+            {
+            	row++;
+            	//arr.add(rs.getInt(1)+"");
+            	arr.add(rs.getInt(3)+"");
+            }
+            String array[]=new String[row];
+            row=0;
+            for (int i = 0; i < array.length; i++) {
+					array[i]=arr.get(row);row++;
+			}
+            System.out.println(array.length);
+            return array;
+                   
+        }catch(Exception e){ System.out.println("error");}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            if(rs!=null) rs.close();
+            }catch(Exception e){}
+        }
+		return null;
+    }
+	public static String[] RetornaArrayComboModelos(String tabla, String colum,Conexion c)
+    {
+        PreparedStatement pst= null;
+        ResultSet rs=null;
+        ArrayList<String> arr=new ArrayList<>();
+        int row=0;
+		try{
+            String consulta="select * from "+tabla+" order by "+colum;
+            pst = c.getConexion().prepareStatement(consulta);
+            rs=pst.executeQuery();
+            while(rs.next())
+            {
+            	row++;
+            	//arr.add(rs.getInt(1)+"");
+            	arr.add(rs.getString(2));
+            }
+            String array[]=new String[row];
+            row=0;
+            for (int i = 0; i < array.length; i++) {
+					array[i]=arr.get(row);row++;
+			}
+            return array;
+                   
+        }catch(Exception e){ System.out.println("error");}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            if(rs!=null) rs.close();
+            }catch(Exception e){}
+        }
+		return null;
+        
+    }
 	public static String[][] RetornaArraybyColumConsumos(String tabla, int colum,Conexion c)
     {
         PreparedStatement pst= null;
@@ -251,6 +318,116 @@ public class Consultas {
 		return null;
         
     }
+	public static String[][] RetornaArrayInsumos(Conexion c)
+    {
+        PreparedStatement pst= null;
+        ResultSet rs=null;
+        ArrayList<String> arr=new ArrayList<>();
+        int row=0;
+		try{
+            String consulta="select * from insumos";
+            pst = c.getConexion().prepareStatement(consulta);
+            rs=pst.executeQuery();
+            while(rs.next())
+            {
+            	row++;
+            	arr.add(rs.getInt(1)+"");
+            	arr.add(rs.getString(2)+""); //importante checar el tipo que regresa si es Srting con getString si es int con getInt,etc
+            	arr.add(rs.getString(3)+"");
+            	arr.add(rs.getInt(4)+"");
+            	arr.add(rs.getString(5)+"");
+            	arr.add(rs.getDouble(6)+"");
+            }
+            String array[][]=new String[row][6]; //numero de campos
+            row=0;
+            for (int i = 0; i < array.length; i++) {
+				for (int j = 0; j < array[0].length; j++) {
+					array[i][j]=arr.get(row);row++;
+				}
+			}
+            return array;
+                   
+        }catch(Exception e){ System.out.println("error");}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            if(rs!=null) rs.close();
+            }catch(Exception e){}
+        }
+		return null;
+        
+    }
+	public static String[][] RetornaArraySuelas(Conexion c)
+    {
+        PreparedStatement pst= null;
+        ResultSet rs=null;
+        ArrayList<String> arr=new ArrayList<>();
+        int row=0;
+		try{
+            String consulta="select * from suelas";
+            pst = c.getConexion().prepareStatement(consulta);
+            rs=pst.executeQuery();
+            while(rs.next())
+            {
+            	row++;
+            	arr.add(rs.getInt(1)+"");
+            	arr.add(rs.getString(2)+""); 
+            }
+            String array[][]=new String[row][2]; //8 numero de campos
+            row=0;
+            for (int i = 0; i < array.length; i++) {
+				for (int j = 0; j < array[0].length; j++) {
+					array[i][j]=arr.get(row);row++;
+				}
+			}
+            return array;
+                   
+        }catch(Exception e){ System.out.println("error");}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            if(rs!=null) rs.close();
+            }catch(Exception e){}
+        }
+		return null;
+        
+    }
+	public static String[][] RetornaArrayDetalle3val(String tabla, String condicion,Conexion c)
+    {
+        PreparedStatement pst= null;
+        ResultSet rs=null;
+        ArrayList<String> arr=new ArrayList<>();
+        int row=0;
+		try{
+            String consulta="select * from "+tabla+" where "+condicion;
+            pst = c.getConexion().prepareStatement(consulta);
+            rs=pst.executeQuery();
+            while(rs.next())
+            {
+            	row++;
+            	arr.add(rs.getInt(1)+"");
+            	arr.add(rs.getString(2));
+            	arr.add(rs.getString(3));
+            }
+            String array[][]=new String[row][3];
+            row=0;
+            for (int i = 0; i < array.length; i++) {
+				for (int j = 0; j < array[0].length; j++) {
+					array[i][j]=arr.get(row);row++;
+				}
+			}
+            return array;
+                   
+        }catch(Exception e){ System.out.println("error");}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            if(rs!=null) rs.close();
+            }catch(Exception e){}
+        }
+		return null;
+        
+    }
 	public static String RetornaValorbyTabla(String tabla,String column,String condicion1,String condicion2,Conexion c)
     {
         PreparedStatement pst= null;
@@ -274,6 +451,30 @@ public class Consultas {
             }catch(Exception e){}
         }
 		return "";
+        
+    }
+	public static String RetornaIdSpeficicCondicion(Conexion c,String tabla,String Condicion)
+    {
+        PreparedStatement pst= null;
+        ResultSet rs=null;
+   
+		try{
+            String consulta="select id from "+tabla+" where "+Condicion;
+            pst = c.getConexion().prepareStatement(consulta);
+            rs=pst.executeQuery();
+            if(rs.absolute(1))
+            {
+            	return (rs.getString(1));
+            }
+                   
+        }catch(Exception e){ System.out.println("error");}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            if(rs!=null) rs.close();
+            }catch(Exception e){}
+        }
+		return "-1";
         
     }
 	//-------- INSERCIONES -------------
@@ -481,6 +682,49 @@ public class Consultas {
         }
         return false;
     }
+	public static boolean InsertaImagenes(int id,String src,Conexion c)
+    {
+        PreparedStatement pst= null;
+		try{
+            String consulta="insert into img values (?,?)";
+            pst = c.getConexion().prepareStatement(consulta);
+            pst.setInt(1, id);
+            pst.setString(2, src);
+//            pst.executeUpdate();
+            if(pst.executeUpdate()==1)
+            {
+                return true;
+            }     
+        }catch(Exception e){}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            }catch(Exception e){}
+        }
+        return false;
+    }
+	public static boolean InsertaInterImagMod(int id,int id_modelo,int id_img,Conexion c)
+    {
+        PreparedStatement pst= null;
+		try{
+            String consulta="insert into detalle_img values (?,?,?)";
+            pst = c.getConexion().prepareStatement(consulta);
+            pst.setInt(1, id);
+            pst.setInt(2, id_modelo);
+            pst.setInt(3, id_img);
+//            pst.executeUpdate();
+            if(pst.executeUpdate()==1)
+            {
+                return true;
+            }     
+        }catch(Exception e){}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            }catch(Exception e){}
+        }
+        return false;
+    }
 	//-------- MODIFICACIONES ------------
 	public static boolean ModificaGeneral(String tabla,String column, String value, String condicion1,String condicion2,Conexion c)
     {
@@ -506,6 +750,29 @@ public class Consultas {
         return false;
     }
 	//-------- ELIMINACIONES -------------
+	public static String RetornaIdToDelete(Conexion c,String tabla,String condicion)
+    {
+        PreparedStatement pst= null;
+        ResultSet rs=null;
+		try{
+            String consulta="select id from "+tabla+" where "+condicion;
+            pst = c.getConexion().prepareStatement(consulta);
+            rs=pst.executeQuery();
+            if(rs.absolute(1))
+            {
+            	return (rs.getInt(1))+"";
+            }
+                   
+        }catch(Exception e){ System.out.println("error metodo RetornaIdToDelete");}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            if(rs!=null) rs.close();
+            }catch(Exception e){}
+        }
+		return "-1";
+        
+    }
 	public static boolean EliminaGeneral(String tabla, String condicion1,String condicion2,Conexion c)
     {
         PreparedStatement pst= null;
