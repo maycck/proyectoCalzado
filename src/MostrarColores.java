@@ -180,6 +180,13 @@ public class MostrarColores extends JInternalFrame {
 		if(Consultas.EliminaGeneral("colores","id", txtid.getText(), c))
 			JOptionPane.showMessageDialog(null, "Error al eliminar");
 		else{
+			String idaeli;
+			idaeli=Consultas.RetornaIdToDelete(c, "detalle_color", "id_color="+txtid.getText());
+			while(!idaeli.equals("-1")){
+				if(Consultas.EliminaGeneral("detalle_color","id",idaeli, c))
+					JOptionPane.showMessageDialog(null, "Error al actualizar un color del modelo");
+				idaeli=Consultas.RetornaIdToDelete(c, "detalle_color", "id_color="+txtid.getText());
+			}
 			txtreset();
 			lblreset(mal);
 			btnhab(false);

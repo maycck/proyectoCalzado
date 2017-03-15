@@ -318,6 +318,43 @@ public class Consultas {
 		return null;
         
     }
+	public static String[][] RetornaArrayModelos(Conexion c)
+    {
+        PreparedStatement pst= null;
+        ResultSet rs=null;
+        ArrayList<String> arr=new ArrayList<>();
+        int row=0;
+		try{
+            String consulta="select * from modelos";
+            pst = c.getConexion().prepareStatement(consulta);
+            rs=pst.executeQuery();
+            while(rs.next())
+            {
+            	row++;
+            	arr.add(rs.getInt(1)+"");
+            	arr.add(rs.getString(2)+""); //importante checar el tipo que regresa si es Srting con getString si es int con getInt,etc
+            	arr.add(rs.getString(3)+"");
+            	
+            }
+            String array[][]=new String[row][3]; //8 numero de campos
+            row=0;
+            for (int i = 0; i < array.length; i++) {
+				for (int j = 0; j < array[0].length; j++) {
+					array[i][j]=arr.get(row);row++;
+				}
+			}
+            return array;
+                   
+        }catch(Exception e){ System.out.println("error");}
+        finally{
+            try{
+            if(pst!=null) pst.close();
+            if(rs!=null) rs.close();
+            }catch(Exception e){}
+        }
+		return null;
+        
+    }
 	public static String[][] RetornaArrayInsumos(Conexion c)
     {
         PreparedStatement pst= null;
@@ -443,7 +480,7 @@ public class Consultas {
             }
             return res;
                    
-        }catch(Exception e){ System.out.println("error");}
+        }catch(Exception e){ System.out.println("error en RetornaValorbyTabla");}
         finally{
             try{
             if(pst!=null) pst.close();
@@ -467,7 +504,7 @@ public class Consultas {
             	return (rs.getString(1));
             }
                    
-        }catch(Exception e){ System.out.println("error");}
+        }catch(Exception e){ System.out.println("error en method RetornaIdSpeficicCondicion");}
         finally{
             try{
             if(pst!=null) pst.close();
@@ -786,7 +823,7 @@ public class Consultas {
                 return true;
             }
             
-        }catch(Exception e){ System.out.println("Error en la consulta");}
+        }catch(Exception e){ System.out.println("Error en la consulta elimina general");}
         finally{
             try{
             if(pst!=null) pst.close();

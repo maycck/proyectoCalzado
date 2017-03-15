@@ -289,6 +289,13 @@ public class MostrarInsumos extends JInternalFrame {
 		if(Consultas.EliminaGeneral("insumos","id", txtid.getText(), c))
 			JOptionPane.showMessageDialog(null, "Error al eliminar");
 		else{
+			String idaeli;
+			idaeli=Consultas.RetornaIdToDelete(c, "consumos", "id_insumo="+txtid.getText());
+			while(!idaeli.equals("-1")){
+				if(Consultas.EliminaGeneral("consumos","id",idaeli, c))
+					JOptionPane.showMessageDialog(null, "Error al eliminar el consumo de los modelos");
+				idaeli=Consultas.RetornaIdToDelete(c, "consumos", "id_insumo="+txtid.getText());
+			}
 			txtreset();
 			lblreset(mal);
 			btnhab(false);

@@ -138,7 +138,12 @@ public class Principal extends JFrame {
 					desktopPane.add(gsu);
 					tree.setSelectionRow(tree.getMinSelectionRow()-6);
 					break;
-					
+				case "Modelos":
+					MostrarModelos gmo = new MostrarModelos();
+					gmo.setVisible(true);
+					desktopPane.add(gmo);
+					tree.setSelectionRow(tree.getMinSelectionRow()-7);
+					break;	
 				///Proceso ---------------------------------------
 					
 				///Clientes --------------------------------------- node
@@ -207,6 +212,7 @@ public class Principal extends JFrame {
 							node_3.add(new DefaultMutableTreeNode("Lineas"));
 							node_3.add(new DefaultMutableTreeNode("Tallas"));
 							node_3.add(new DefaultMutableTreeNode("Suelas"));
+							node_3.add(new DefaultMutableTreeNode("Modelos"));
 							node_1.add(node_3);
 						add(node_1);
 						node_1 = new DefaultMutableTreeNode("Proceso");

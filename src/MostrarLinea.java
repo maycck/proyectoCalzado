@@ -178,6 +178,13 @@ public class MostrarLinea extends JInternalFrame {
 		if(Consultas.EliminaGeneral("linea","id", txtid.getText(), c))
 			JOptionPane.showMessageDialog(null, "Error al eliminar");
 		else{
+			String idaeli;
+			idaeli=Consultas.RetornaIdToDelete(c, "detalle_linea", "id_linea="+txtid.getText());
+			while(!idaeli.equals("-1")){
+				if(Consultas.EliminaGeneral("detalle_linea","id",idaeli, c))
+					JOptionPane.showMessageDialog(null, "Error al eliminar la relacionde la linea con modelo");
+				idaeli=Consultas.RetornaIdToDelete(c, "detalle_linea", "id_linea="+txtid.getText());
+			}
 			txtreset();
 			lblreset(mal);
 			btnhab(false);

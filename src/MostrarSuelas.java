@@ -270,6 +270,19 @@ public class MostrarSuelas extends JInternalFrame {
 		if(Consultas.EliminaGeneral("suelas","id", txtid.getText(), c))
 			JOptionPane.showMessageDialog(null, "Error al eliminar");
 		else{
+			String idaeli;
+			idaeli=Consultas.RetornaIdToDelete(c, "detalle_talla", "id_suela="+txtid.getText());
+			while(!idaeli.equals("-1")){
+				if(Consultas.EliminaGeneral("detalle_talla","id",idaeli, c))
+					JOptionPane.showMessageDialog(null, "Error al eliminar una talla de la suela");
+				idaeli=Consultas.RetornaIdToDelete(c, "detalle_talla", "id_suela="+txtid.getText());
+			}
+			idaeli=Consultas.RetornaIdToDelete(c, "modelos", "id_suela="+txtid.getText());
+			while(!idaeli.equals("-1")){
+				if(!Consultas.ModificaGeneral("modelos", "id_suela", "-1", "id", idaeli, c))
+					JOptionPane.showMessageDialog(null, "Error al actualizar el nombre");
+				idaeli=Consultas.RetornaIdToDelete(c, "modelos", "id_suela="+txtid.getText());
+			}
 			txtreset();
 			lblreset(mal);
 			btnhab(false);

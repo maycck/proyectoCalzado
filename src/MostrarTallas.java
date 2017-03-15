@@ -208,6 +208,13 @@ public class MostrarTallas extends JInternalFrame {
 		if(Consultas.EliminaGeneral("tallas","id", txtid.getText(), c))
 			JOptionPane.showMessageDialog(null, "Error al eliminar");
 		else{
+			String idaeli;
+			idaeli=Consultas.RetornaIdToDelete(c, "detalle_talla", "id_talla="+txtid.getText());
+			while(!idaeli.equals("-1")){
+				if(Consultas.EliminaGeneral("detalle_talla","id",idaeli, c))
+					JOptionPane.showMessageDialog(null, "Error al eliminar la relacion de talla con suela");
+				idaeli=Consultas.RetornaIdToDelete(c, "detalle_talla", "id_talla="+txtid.getText());
+			}
 			txtreset();
 			lblreset(mal);
 			btnhab(false);

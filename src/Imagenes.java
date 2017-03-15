@@ -23,7 +23,9 @@ public class Imagenes extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		new Imagenes().setVisible(true);
+		Imagenes imgs=new Imagenes();
+		imgs.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		imgs.setVisible(true);
 	}
 	JButton btn1,btn2,btn3,btn4,btnmos;
 	JLabel lbl1,lbl2,lbl3,lbl4;
@@ -103,7 +105,7 @@ public class Imagenes extends JFrame {
 			        
 			        System.out.println("Proceso de copiar archivo: " + CopiarArchivo.getInstance().copiar(origen, destino));
 			      
-			        lbl1.setIcon(new ImageIcon(origen));
+			        lbl1.setIcon(ConfigGen.imagenScale(origen, lbl1.getWidth(), lbl1.getHeight()));
 			
 					String id=Consultas.RetornaId(c, "img");
 
@@ -154,7 +156,7 @@ public class Imagenes extends JFrame {
 			        
 			        System.out.println("Proceso de copiar archivo: " + CopiarArchivo.getInstance().copiar(origen, destino));
 			      
-			        lbl2.setIcon(new ImageIcon(origen));
+			        lbl2.setIcon(ConfigGen.imagenScale(origen, lbl1.getWidth(), lbl1.getHeight()));
 			
 					String id=Consultas.RetornaId(c, "img");
 
@@ -205,7 +207,7 @@ public class Imagenes extends JFrame {
 			        
 			        System.out.println("Proceso de copiar archivo: " + CopiarArchivo.getInstance().copiar(origen, destino));
 			      
-			        lbl3.setIcon(new ImageIcon(origen));
+			        lbl3.setIcon(ConfigGen.imagenScale(origen, lbl1.getWidth(), lbl1.getHeight()));
 			
 					String id=Consultas.RetornaId(c, "img");
 
@@ -256,7 +258,7 @@ public class Imagenes extends JFrame {
 			        
 			        System.out.println("Proceso de copiar archivo: " + CopiarArchivo.getInstance().copiar(origen, destino));
 			      
-			        lbl4.setIcon(new ImageIcon(origen));
+			        lbl4.setIcon(ConfigGen.imagenScale(origen, lbl1.getWidth(), lbl1.getHeight()));
 			
 					String id=Consultas.RetornaId(c, "img");
 
@@ -283,9 +285,7 @@ public class Imagenes extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Conexion c=new Conexion();
-				
-				
+				Conexion c=new Conexion();		
 				String id_modelo=Consultas.RetornaValorbyTabla("modelos", "id", "nombre", "'"+cmbmod.getSelectedItem().toString()+"'", c);
 				id_img=Consultas.RetornaArrayDetalleImg("detalle_img","id_img",Integer.parseInt(id_modelo),c);
 				if(id_img.length!=0){
@@ -299,15 +299,19 @@ public class Imagenes extends JFrame {
 					System.out.println(id_modelo+" idimg "+id_img[i]+" src "+src[i] );					
 				}
 				
-				lbl2.setIcon(new ImageIcon(src[0]));
-				lbl2.setIcon(new ImageIcon(src[1]));
-				lbl3.setIcon(new ImageIcon(src[2]));
-				lbl4.setIcon(new ImageIcon(src[3]));
+				lbl1.setIcon(ConfigGen.imagenScale(src[0], lbl1.getWidth(), lbl1.getHeight()));
+				lbl2.setIcon(ConfigGen.imagenScale(src[1], lbl1.getWidth(), lbl1.getHeight()));
+				lbl3.setIcon(ConfigGen.imagenScale(src[2], lbl1.getWidth(), lbl1.getHeight()));
+				lbl4.setIcon(ConfigGen.imagenScale(src[3], lbl1.getWidth(), lbl1.getHeight()));
+				lbl1.setText("");
+				lbl2.setText("");
+				lbl3.setText("");
+				lbl4.setText("");
 				}else{
-					lbl2.setIcon(new ImageIcon());
-					lbl2.setIcon(new ImageIcon());
-					lbl3.setIcon(new ImageIcon());
-					lbl4.setIcon(new ImageIcon());
+					lbl1.setIcon(null);
+					lbl2.setIcon(null);
+					lbl3.setIcon(null);
+					lbl4.setIcon(null);
 				}
 //				if(Consultas.InsertaInterImagMod(Integer.parseInt(id), Integer.parseInt(id_modelo),Integer.parseInt(id_img), c)){
 //					JOptionPane.showMessageDialog(null, "Relacion agregada con exito ");
