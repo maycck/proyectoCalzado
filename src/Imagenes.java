@@ -39,6 +39,7 @@ public class Imagenes extends JFrame {
 	 * Create the frame.
 	 */
 	public Imagenes() {
+		setTitle("Imagenes");
 		setBounds(100, 100, 700, 450);
 		getContentPane().setLayout(null);
 		
@@ -87,40 +88,77 @@ public class Imagenes extends JFrame {
 			        "JPG, PNG & GIF Images", "jpg", "png", "gif");
 			    chooser.setFileFilter(filter);
 			    int returnVal = chooser.showOpenDialog(null);
-			    if(returnVal == JFileChooser.APPROVE_OPTION) {
-			    	String cad= chooser.getSelectedFile().getName().substring(chooser.getSelectedFile().getName().length()-4);
-			    	String origen = chooser.getSelectedFile().getPath();
-			    	System.out.println("You chose to open this file: " +origen+"\n"+cad);
-			        String carp = "C:/ProCzo/img";
-			        if(!new File(carp).exists())
-			        {
-			        	new File(carp).mkdir();
-			        }
-			        String id_modelo=Consultas.RetornaValorbyTabla("modelos", "id", "nombre", "'"+cmbmod.getSelectedItem().toString()+"'", c);
-			        String destino=carp+"/"+id_modelo+"img1"+cad;
-			        if(new File(destino).exists())
-			        {
-			        	new File(destino).delete();
-			        }
-			        
-			        System.out.println("Proceso de copiar archivo: " + CopiarArchivo.getInstance().copiar(origen, destino));
-			      
-			        lbl1.setIcon(ConfigGen.imagenScale(origen, lbl1.getWidth(), lbl1.getHeight()));
-			
-					String id=Consultas.RetornaId(c, "img");
-
-					System.out.println("Valor del id de la imagen "+id);
-					if(Consultas.InsertaImagenes(Integer.parseInt(id), destino, c)){
-						if(DetalleImg(id))	
+			    if(returnVal == JFileChooser.APPROVE_OPTION){
+			    String carp = "C:/ProCzo/img";
+				String id_modelo=Consultas.RetornaValorbyTabla("modelos", "id", "nombre", "'"+cmbmod.getSelectedItem().toString()+"'", c);
+				String cad= chooser.getSelectedFile().getName().substring(chooser.getSelectedFile().getName().length()-4);
+		    	String origen = chooser.getSelectedFile().getPath();
+		    	String comprobar=carp+"/"+id_modelo+"img1";
+				String destino=comprobar+cad;
+				String idimg =Consultas2.CompruebaImag("id", "img","src" ,'"'+comprobar+"%"+'"', c);
+		        
+				System.out.println("ID de la imagen existente "+idimg);
+				if(idimg!="-1")
+				{
+					if(returnVal == JFileChooser.APPROVE_OPTION) {
+				    	System.out.println("You chose to open this file: " +origen+"\n"+cad);
+				        if(!new File(carp).exists())
+				        {
+				        	new File(carp).mkdir();
+				        }
+				        if(new File(destino).exists())
+				        {
+				        	new File(destino).delete();
+				        }
+				        
+				        System.out.println("Proceso de copiar archivo: " + CopiarArchivo.getInstance().copiar(origen, destino));
+				      
+				        lbl1.setIcon(new ImageIcon(origen));
+				
+						System.out.println("Valor del id de la imagen "+idimg);
+						if(Consultas.ModificaGeneral("img", "src", destino, "id", idimg, c)){
 							JOptionPane.showMessageDialog(null, "Imagen agregada con exito ");
-						else
-							JOptionPane.showMessageDialog(null, "Error al insertar inesperado");
-					}else
-						JOptionPane.showMessageDialog(null, "Error al insertar imagen "+Integer.parseInt(id)+" "+ destino);
+						}else
+							JOptionPane.showMessageDialog(null, "Error al insertar imagen "+Integer.parseInt(idimg)+" "+ destino);
+						
+						c.closeConexion();
+						
+				    }
+				}
+				else{
+					if(returnVal == JFileChooser.APPROVE_OPTION) {
+				    	System.out.println("You chose to open this file: " +origen+"\n"+cad);
+				        if(!new File(carp).exists())
+				        {
+				        	new File(carp).mkdir();
+				        }
+				        if(new File(destino).exists())
+				        {
+				        	new File(destino).delete();
+				        }
+				        
+				        System.out.println("Proceso de copiar archivo: " + CopiarArchivo.getInstance().copiar(origen, destino));
+				      
+				        lbl1.setIcon(new ImageIcon(origen));
+				
+						String id=Consultas.RetornaId(c, "img");
+
+						System.out.println("Valor del id de la imagen "+id);
+						if(Consultas.InsertaImagenes(Integer.parseInt(id), destino, c)){
+							if(DetalleImg(id))	
+								JOptionPane.showMessageDialog(null, "Imagen agregada con exito ");
+							else
+								JOptionPane.showMessageDialog(null, "Error al insertar inesperado");
+						}else
+							JOptionPane.showMessageDialog(null, "Error al insertar imagen "+Integer.parseInt(id)+" "+ destino);
+						
+						c.closeConexion();
+						
+				    }
 					
-					c.closeConexion();
-					
-			    }
+				}
+				
+			}
 				
 			}
 		});
@@ -138,40 +176,77 @@ public class Imagenes extends JFrame {
 			        "JPG, PNG & GIF Images", "jpg", "png", "gif");
 			    chooser.setFileFilter(filter);
 			    int returnVal = chooser.showOpenDialog(null);
-			    if(returnVal == JFileChooser.APPROVE_OPTION) {
-			    	String cad= chooser.getSelectedFile().getName().substring(chooser.getSelectedFile().getName().length()-4);
-			    	String origen = chooser.getSelectedFile().getPath();
-			    	System.out.println("You chose to open this file: " +origen+"\n"+cad);
-			        String carp = "C:/ProCzo/img";
-			        if(!new File(carp).exists())
-			        {
-			        	new File(carp).mkdir();
-			        }
-			        String id_modelo=Consultas.RetornaValorbyTabla("modelos", "id", "nombre", "'"+cmbmod.getSelectedItem().toString()+"'", c);
-			        String destino=carp+"/"+id_modelo+"img2"+cad;
-			        if(new File(destino).exists())
-			        {
-			        	new File(destino).delete();
-			        }
-			        
-			        System.out.println("Proceso de copiar archivo: " + CopiarArchivo.getInstance().copiar(origen, destino));
-			      
-			        lbl2.setIcon(ConfigGen.imagenScale(origen, lbl1.getWidth(), lbl1.getHeight()));
-			
-					String id=Consultas.RetornaId(c, "img");
-
-					System.out.println("Valor del id de la imagen "+id);
-					if(Consultas.InsertaImagenes(Integer.parseInt(id), destino, c)){
-						if(DetalleImg(id))	
+			    if(returnVal == JFileChooser.APPROVE_OPTION){
+			    String carp = "C:/ProCzo/img";
+				String id_modelo=Consultas.RetornaValorbyTabla("modelos", "id", "nombre", "'"+cmbmod.getSelectedItem().toString()+"'", c);
+				String cad= chooser.getSelectedFile().getName().substring(chooser.getSelectedFile().getName().length()-4);
+		    	String origen = chooser.getSelectedFile().getPath();
+		    	String comprobar=carp+"/"+id_modelo+"img2";
+				String destino=comprobar+cad;
+				String idimg =Consultas2.CompruebaImag("id", "img","src" ,'"'+comprobar+"%"+'"', c);
+		        
+				System.out.println("ID de la imagen existente "+idimg);
+				if(idimg!="-1")
+				{
+					if(returnVal == JFileChooser.APPROVE_OPTION) {
+				    	System.out.println("You chose to open this file: " +origen+"\n"+cad);
+				        if(!new File(carp).exists())
+				        {
+				        	new File(carp).mkdir();
+				        }
+				        if(new File(destino).exists())
+				        {
+				        	new File(destino).delete();
+				        }
+				        
+				        System.out.println("Proceso de copiar archivo: " + CopiarArchivo.getInstance().copiar(origen, destino));
+				      
+				        lbl2.setIcon(new ImageIcon(origen));
+				
+						System.out.println("Valor del id de la imagen "+idimg);
+						if(Consultas.ModificaGeneral("img", "src", destino, "id", idimg, c)){
 							JOptionPane.showMessageDialog(null, "Imagen agregada con exito ");
-						else
-							JOptionPane.showMessageDialog(null, "Error al insertar inesperado");
-					}else
-						JOptionPane.showMessageDialog(null, "Error al insertar imagen "+Integer.parseInt(id)+" "+ destino);
+						}else
+							JOptionPane.showMessageDialog(null, "Error al insertar imagen "+Integer.parseInt(idimg)+" "+ destino);
+						
+						c.closeConexion();
+						
+				    }
+				}
+				else{
+					if(returnVal == JFileChooser.APPROVE_OPTION) {
+				    	System.out.println("You chose to open this file: " +origen+"\n"+cad);
+				        if(!new File(carp).exists())
+				        {
+				        	new File(carp).mkdir();
+				        }
+				        if(new File(destino).exists())
+				        {
+				        	new File(destino).delete();
+				        }
+				        
+				        System.out.println("Proceso de copiar archivo: " + CopiarArchivo.getInstance().copiar(origen, destino));
+				      
+				        lbl2.setIcon(new ImageIcon(origen));
+				
+						String id=Consultas.RetornaId(c, "img");
+
+						System.out.println("Valor del id de la imagen "+id);
+						if(Consultas.InsertaImagenes(Integer.parseInt(id), destino, c)){
+							if(DetalleImg(id))	
+								JOptionPane.showMessageDialog(null, "Imagen agregada con exito ");
+							else
+								JOptionPane.showMessageDialog(null, "Error al insertar inesperado");
+						}else
+							JOptionPane.showMessageDialog(null, "Error al insertar imagen "+Integer.parseInt(id)+" "+ destino);
+						
+						c.closeConexion();
+						
+				    }
 					
-					c.closeConexion();
-					
-			    }
+				}
+				
+			}
 				
 			}
 		});
@@ -189,40 +264,75 @@ public class Imagenes extends JFrame {
 			        "JPG, PNG & GIF Images", "jpg", "png", "gif");
 			    chooser.setFileFilter(filter);
 			    int returnVal = chooser.showOpenDialog(null);
-			    if(returnVal == JFileChooser.APPROVE_OPTION) {
-			    	String cad= chooser.getSelectedFile().getName().substring(chooser.getSelectedFile().getName().length()-4);
-			    	String origen = chooser.getSelectedFile().getPath();
-			    	System.out.println("You chose to open this file: " +origen+"\n"+cad);
-			        String carp = "C:/ProCzo/img";
-			        if(!new File(carp).exists())
-			        {
-			        	new File(carp).mkdir();
-			        }
-			        String id_modelo=Consultas.RetornaValorbyTabla("modelos", "id", "nombre", "'"+cmbmod.getSelectedItem().toString()+"'", c);
-			        String destino=carp+"/"+id_modelo+"img3"+cad;
-			        if(new File(destino).exists())
-			        {
-			        	new File(destino).delete();
-			        }
-			        
-			        System.out.println("Proceso de copiar archivo: " + CopiarArchivo.getInstance().copiar(origen, destino));
-			      
-			        lbl3.setIcon(ConfigGen.imagenScale(origen, lbl1.getWidth(), lbl1.getHeight()));
-			
-					String id=Consultas.RetornaId(c, "img");
-
-					System.out.println("Valor del id de la imagen "+id);
-					if(Consultas.InsertaImagenes(Integer.parseInt(id), destino, c)){
-						if(DetalleImg(id))	
+			    if(returnVal == JFileChooser.APPROVE_OPTION){
+			    String carp = "C:/ProCzo/img";
+				String id_modelo=Consultas.RetornaValorbyTabla("modelos", "id", "nombre", "'"+cmbmod.getSelectedItem().toString()+"'", c);
+				String cad= chooser.getSelectedFile().getName().substring(chooser.getSelectedFile().getName().length()-4);
+		    	String origen = chooser.getSelectedFile().getPath();
+		    	String comprobar=carp+"/"+id_modelo+"img3";
+				String destino=comprobar+cad;
+				String idimg =Consultas2.CompruebaImag("id", "img","src" ,'"'+comprobar+"%"+'"', c);
+		        
+				System.out.println("ID de la imagen existente "+idimg);
+				 
+				if(idimg!="-1")
+				{
+				    	System.out.println("You chose to open this file: " +origen+"\n"+cad);
+				        if(!new File(carp).exists())
+				        {
+				        	new File(carp).mkdir();
+				        }
+				        if(new File(destino).exists())
+				        {
+				        	new File(destino).delete();
+				        }
+				        
+				        System.out.println("Proceso de copiar archivo: " + CopiarArchivo.getInstance().copiar(origen, destino));
+				      
+				        lbl3.setIcon(new ImageIcon(origen));
+				
+						System.out.println("Valor del id de la imagen "+idimg);
+						if(Consultas.ModificaGeneral("img", "src", destino, "id", idimg, c)){
 							JOptionPane.showMessageDialog(null, "Imagen agregada con exito ");
-						else
-							JOptionPane.showMessageDialog(null, "Error al insertar inesperado");
-					}else
-						JOptionPane.showMessageDialog(null, "Error al insertar imagen "+Integer.parseInt(id)+" "+ destino);
+						}else
+							JOptionPane.showMessageDialog(null, "Error al insertar imagen "+Integer.parseInt(idimg)+" "+ destino);
+						
+						c.closeConexion();
+						
+				}
+				else{
+				    	System.out.println("You chose to open this file: " +origen+"\n"+cad);
+				        if(!new File(carp).exists())
+				        {
+				        	new File(carp).mkdir();
+				        }
+				        if(new File(destino).exists())
+				        {
+				        	new File(destino).delete();
+				        }
+				        
+				        System.out.println("Proceso de copiar archivo: " + CopiarArchivo.getInstance().copiar(origen, destino));
+				      
+				        lbl3.setIcon(new ImageIcon(origen));
+				
+						String id=Consultas.RetornaId(c, "img");
+
+						System.out.println("Valor del id de la imagen "+id);
+						if(Consultas.InsertaImagenes(Integer.parseInt(id), destino, c)){
+							if(DetalleImg(id))	
+								JOptionPane.showMessageDialog(null, "Imagen agregada con exito ");
+							else
+								JOptionPane.showMessageDialog(null, "Error al insertar inesperado");
+						}else
+							JOptionPane.showMessageDialog(null, "Error al insertar imagen "+Integer.parseInt(id)+" "+ destino);
+						
+						c.closeConexion();
+						
 					
-					c.closeConexion();
-					
-			    }
+				}
+			}
+				
+				
 				
 			}
 		});
@@ -240,40 +350,77 @@ public class Imagenes extends JFrame {
 			        "JPG, PNG & GIF Images", "jpg", "png", "gif");
 			    chooser.setFileFilter(filter);
 			    int returnVal = chooser.showOpenDialog(null);
-			    if(returnVal == JFileChooser.APPROVE_OPTION) {
-			    	String cad= chooser.getSelectedFile().getName().substring(chooser.getSelectedFile().getName().length()-4);
-			    	String origen = chooser.getSelectedFile().getPath();
-			    	System.out.println("You chose to open this file: " +origen+"\n"+cad);
-			        String carp = "C:/ProCzo/img";
-			        if(!new File(carp).exists())
-			        {
-			        	new File(carp).mkdir();
-			        }
-			        String id_modelo=Consultas.RetornaValorbyTabla("modelos", "id", "nombre", "'"+cmbmod.getSelectedItem().toString()+"'", c);
-			        String destino=carp+"/"+id_modelo+"img4"+cad;
-			        if(new File(destino).exists())
-			        {
-			        	new File(destino).delete();
-			        }
-			        
-			        System.out.println("Proceso de copiar archivo: " + CopiarArchivo.getInstance().copiar(origen, destino));
-			      
-			        lbl4.setIcon(ConfigGen.imagenScale(origen, lbl1.getWidth(), lbl1.getHeight()));
-			
-					String id=Consultas.RetornaId(c, "img");
-
-					System.out.println("Valor del id de la imagen "+id);
-					if(Consultas.InsertaImagenes(Integer.parseInt(id), destino, c)){
-						if(DetalleImg(id))	
+			    if(returnVal == JFileChooser.APPROVE_OPTION){
+			    String carp = "C:/ProCzo/img";
+				String id_modelo=Consultas.RetornaValorbyTabla("modelos", "id", "nombre", "'"+cmbmod.getSelectedItem().toString()+"'", c);
+				String cad= chooser.getSelectedFile().getName().substring(chooser.getSelectedFile().getName().length()-4);
+		    	String origen = chooser.getSelectedFile().getPath();
+		    	String comprobar=carp+"/"+id_modelo+"img4";
+				String destino=comprobar+cad;
+				String idimg =Consultas2.CompruebaImag("id", "img","src" ,'"'+comprobar+"%"+'"', c);
+		        
+				System.out.println("ID de la imagen existente "+idimg);
+				if(idimg!="-1")
+				{
+					if(returnVal == JFileChooser.APPROVE_OPTION) {
+				    	System.out.println("You chose to open this file: " +origen+"\n"+cad);
+				        if(!new File(carp).exists())
+				        {
+				        	new File(carp).mkdir();
+				        }
+				        if(new File(destino).exists())
+				        {
+				        	new File(destino).delete();
+				        }
+				        
+				        System.out.println("Proceso de copiar archivo: " + CopiarArchivo.getInstance().copiar(origen, destino));
+				      
+				        lbl4.setIcon(new ImageIcon(origen));
+				
+						System.out.println("Valor del id de la imagen "+idimg);
+						if(Consultas.ModificaGeneral("img", "src", destino, "id", idimg, c)){
 							JOptionPane.showMessageDialog(null, "Imagen agregada con exito ");
-						else
-							JOptionPane.showMessageDialog(null, "Error al insertar inesperado");
-					}else
-						JOptionPane.showMessageDialog(null, "Error al insertar imagen "+Integer.parseInt(id)+" "+ destino);
+						}else
+							JOptionPane.showMessageDialog(null, "Error al insertar imagen "+Integer.parseInt(idimg)+" "+ destino);
+						
+						c.closeConexion();
+						
+				    }
+				}
+				else{
+					if(returnVal == JFileChooser.APPROVE_OPTION) {
+				    	System.out.println("You chose to open this file: " +origen+"\n"+cad);
+				        if(!new File(carp).exists())
+				        {
+				        	new File(carp).mkdir();
+				        }
+				        if(new File(destino).exists())
+				        {
+				        	new File(destino).delete();
+				        }
+				        
+				        System.out.println("Proceso de copiar archivo: " + CopiarArchivo.getInstance().copiar(origen, destino));
+				      
+				        lbl4.setIcon(new ImageIcon(origen));
+				
+						String id=Consultas.RetornaId(c, "img");
+
+						System.out.println("Valor del id de la imagen "+id);
+						if(Consultas.InsertaImagenes(Integer.parseInt(id), destino, c)){
+							if(DetalleImg(id))	
+								JOptionPane.showMessageDialog(null, "Imagen agregada con exito ");
+							else
+								JOptionPane.showMessageDialog(null, "Error al insertar inesperado");
+						}else
+							JOptionPane.showMessageDialog(null, "Error al insertar imagen "+Integer.parseInt(id)+" "+ destino);
+						
+						c.closeConexion();
+						
+				    }
 					
-					c.closeConexion();
-					
-			    }
+				}
+				
+			}
 				
 			}
 		});
@@ -285,34 +432,76 @@ public class Imagenes extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Conexion c=new Conexion();		
+				Conexion c=new Conexion();
+				
+				
 				String id_modelo=Consultas.RetornaValorbyTabla("modelos", "id", "nombre", "'"+cmbmod.getSelectedItem().toString()+"'", c);
 				id_img=Consultas.RetornaArrayDetalleImg("detalle_img","id_img",Integer.parseInt(id_modelo),c);
 				if(id_img.length!=0){
-				String src[]=new String[id_img.length];
+				String src[]=new String[4];
 				
 				System.out.println("for id "+id_img.length);
-				
+				String sub,j;
 				for(int i=0;i<id_img.length;i++)
 				{
-					src[i]=Consultas.RetornaValorbyTabla("img","src","id",id_img[i],c);
-					System.out.println(id_modelo+" idimg "+id_img[i]+" src "+src[i] );					
+					sub=Consultas.RetornaValorbyTabla("img","src","id",id_img[i],c);
+					j=sub.substring(sub.length()-5, sub.length()-4);
+					src[Integer.parseInt(j)-1]=sub;
+					System.out.println(id_modelo+" idimg "+id_img[i]+" src "+src[Integer.parseInt(j)-1]+"  "+j );					
 				}
 				
-				lbl1.setIcon(ConfigGen.imagenScale(src[0], lbl1.getWidth(), lbl1.getHeight()));
-				lbl2.setIcon(ConfigGen.imagenScale(src[1], lbl1.getWidth(), lbl1.getHeight()));
-				lbl3.setIcon(ConfigGen.imagenScale(src[2], lbl1.getWidth(), lbl1.getHeight()));
-				lbl4.setIcon(ConfigGen.imagenScale(src[3], lbl1.getWidth(), lbl1.getHeight()));
-				lbl1.setText("");
-				lbl2.setText("");
-				lbl3.setText("");
-				lbl4.setText("");
-				}else{
+				if(src[0]!=null){
+					lbl1.setText(null);
+					//lbl1.setIcon(new ImageIcon(src[0]));
+					lbl1.setIcon(ConfigGen.imagenScale(src[0], lbl1.getWidth(), lbl1.getHeight()));
+						
+				}
+					
+				else{
+					lbl1.setIcon(null);
+					lbl1.setText("?");
+				}
+				
+				if(src[1]!=null){
+					lbl2.setText(null);
+					lbl2.setIcon(ConfigGen.imagenScale(src[1], lbl1.getWidth(), lbl1.getHeight()));
+					}
+				else{
+					lbl2.setIcon(null);
+					lbl2.setText("?");
+				}
+				if(src[2]!=null){
+					lbl3.setText(null);
+					//lbl3.setIcon(new ImageIcon(src[2]));
+					lbl3.setIcon(ConfigGen.imagenScale(src[2], lbl1.getWidth(), lbl1.getHeight()));
+				}
+				else{
+					lbl3.setIcon(null);
+					lbl3.setText("?");	
+				}
+						
+				if(src[3]!=null){
+					lbl4.setText(null);
+					//lbl4.setIcon(new ImageIcon(src[3]));
+					lbl4.setIcon(ConfigGen.imagenScale(src[3], lbl1.getWidth(), lbl1.getHeight()));
+				}
+				else{
+					lbl4.setIcon(null);
+					lbl4.setText("?");
+				}
+						
+			}
+				else{
 					lbl1.setIcon(null);
 					lbl2.setIcon(null);
 					lbl3.setIcon(null);
 					lbl4.setIcon(null);
+					lbl1.setText("?");
+					lbl2.setText("?");
+					lbl3.setText("?");
+					lbl4.setText("?");
 				}
+				
 //				if(Consultas.InsertaInterImagMod(Integer.parseInt(id), Integer.parseInt(id_modelo),Integer.parseInt(id_img), c)){
 //					JOptionPane.showMessageDialog(null, "Relacion agregada con exito ");
 //					c.closeConexion();
