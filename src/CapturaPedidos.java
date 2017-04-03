@@ -277,7 +277,7 @@ public class CapturaPedidos extends  JFrame//JInternalFrame
 		panel_2.add(lbl3);
 		lbl3.setIcon(new ImageIcon(CapturaPedidos.class.getResource("/img/a.gif")));
 		
-		JLabel lbldia = new JLabel("Dias de produccion");
+		JLabel lbldia = new JLabel("Semana");
 		lbldia.setBounds(269, 25, 116, 14);
 		panel_2.add(lbldia);
 		lbldia.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -311,6 +311,8 @@ public class CapturaPedidos extends  JFrame//JInternalFrame
 		btneli.setBounds(575, 351, 97, 25);
 		btneli.setEnabled(false);
 		getContentPane().add(btneli);
+		
+		CombLle();
 		cmbmod.addActionListener(new ActionListener() {
 			
 			@Override
@@ -323,7 +325,6 @@ public class CapturaPedidos extends  JFrame//JInternalFrame
 		
 		co.closeConexion();
 		
-		CombLle();
 		eventosF();
 		
 		
@@ -379,7 +380,8 @@ public class CapturaPedidos extends  JFrame//JInternalFrame
 		lbl5.setIcon(new ImageIcon(mal));
 		datostabla();
 		}else{
-			JOptionPane.showMessageDialog(null, "oh no faltan completar algunos campos ");
+			if(caracP==null)
+				JOptionPane.showMessageDialog(null, "oh no faltan completar algunos campos ");
 		}
 		
 	}
@@ -394,13 +396,15 @@ public class CapturaPedidos extends  JFrame//JInternalFrame
 	{
 		Conexion c=new Conexion();
 		BotonMas();
-		for (int i = 0; i < caracP.length; i++) {
-			for (int j = 0; j < caracP[i].length; j++) {
-				System.out.print(caracP[i][j]+" ");
+		if(caracP!=null){
+			for (int i = 0; i < caracP.length; i++) {
+				for (int j = 0; j < caracP[i].length; j++) {
+					System.out.print(caracP[i][j]+" ");
+				}
+				System.out.println();
 			}
-			System.out.println();
-		}
-		if(Consultas2.InsertaPedidos(Integer.parseInt(caracP[0][0]),caracP[0][1],caracP[0][3],caracP[0][5],1,c))
+		
+		if(Consultas2.InsertaPedidos(Integer.parseInt(caracP[0][0]),caracP[0][1],caracP[0][3],caracP[0][5],1,Integer.parseInt(caracP[0][4]),c))
 		{
 		for (int i = 0; i < caracP.length; i++) {
 				
@@ -439,7 +443,7 @@ public class CapturaPedidos extends  JFrame//JInternalFrame
 		}
 		else
 			JOptionPane.showMessageDialog(null, "Error de la base de datos al insertar inesperado ");
-		
+		}
 		
 		c.closeConexion();
 	}
@@ -733,8 +737,21 @@ public class CapturaPedidos extends  JFrame//JInternalFrame
 				try{
 					int test=Integer.parseInt(txtdia.getText());
 					lbl4.setIcon(new ImageIcon(bien));
+					
+					String fchp=txtfcp.getText().toString();
+					String anop=fchp.substring(5,9);
+					String mesp=fchp.substring(2,4);
+					String diap=fchp.substring(0, 2);
+					if(mesp.substring(0,1).equals("/"))
+						mesp="0"+mesp.substring(1);
+					int semac=ConfigGen.WeekOfYear(anop+"-"+mesp+"-"+diap);//Semana actual
+					int semre=Integer.parseInt(txtdia.getText());//Semana recibida
+					int dif=semre-semac;//las semanas de diferencia para calcular el dia de la semana
+					System.out.println(semre+"  "+semac);
+					System.out.println(anop+"-"+mesp+"-"+diap);
+					dif*=7;//multiplicar la dif por 7 que son los dias de la semana
 					fecent = new GregorianCalendar();
-					fecent.add(Calendar.DAY_OF_MONTH, test);
+					fecent.add(Calendar.DAY_OF_MONTH, dif);
 					int ano=fecent.get(Calendar.YEAR);
 					int mes=fecent.get(Calendar.MONTH)+1;
 					int day=fecent.get(Calendar.DATE);

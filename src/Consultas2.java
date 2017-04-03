@@ -801,17 +801,18 @@ public class Consultas2 {
         }
         return false;
     }
-	public static boolean InsertaPedidos(int id,String cliente, String fchp,String fche,int edo,Conexion c)
+	public static boolean InsertaPedidos(int id,String cliente, String fchp,String fche,int edo,int semana,Conexion c)
 	{
 		PreparedStatement pst= null;
 		try{
-            String consulta="insert into Pedidos values (?,?,?,?,?)";
+            String consulta="insert into Pedidos values (?,?,?,?,?,?)";
             pst = c.getConexion().prepareStatement(consulta);
             pst.setInt(1, id);
             pst.setString(2, cliente);
             pst.setString(3, fchp);
             pst.setString(4, fche);
             pst.setInt(5, edo);
+            pst.setInt(6, semana);
 //            pst.executeUpdate();
             if(pst.executeUpdate()==1)
             {
